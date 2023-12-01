@@ -1,0 +1,118 @@
+@media (prefers-color-scheme: dark) {
+  .quote_block {
+    color: var(--telekom-color-text-and-icon-inverted-standard);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .quote_block {
+    color: var(--telekom-color-text-and-icon-inverted-standard);
+  }
+}
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  background-color: var(--telekom-color-primary-standard);
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  margin-top: 4rem;
+}
+
+.container_width {
+  width: 100%;
+  max-width: var(--scl-grid-max-width);
+}
+
+.quote_block {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: none;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  text-shadow: 0px 4px 8px rgba(0,0,0,0.8);
+}
+
+.quote_block::before,
+.quote_block::after {
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  content: "";
+}
+
+.quote_block::before {
+  left: 0;
+  top: 0;
+  border-left: 10px solid var(--telekom-color-ui-white);
+  border-top: 10px solid var(--telekom-color-ui-white);
+ }
+
+ .quote_block::after {
+  right: 0;
+  bottom: 0;
+  border-right: 10px solid var(--telekom-color-ui-white);
+  border-bottom: 10px solid var(--telekom-color-ui-white);
+ }
+
+.quote_icon_text {
+  display: flex;
+  color: white;
+}
+
+.quote_image {
+  width: 144px;
+  height: 144px;
+  margin-right: 4rem; /* Abstand von 4rem rechts vom Bild */
+  margin-left: 4rem; /* Abstand von 4rem links vom Bild */
+  border-radius: 50%;
+}
+
+.quote_icon {
+  font-size: 10rem;
+  margin-right: 4rem;
+  margin-top: -3rem;
+}
+
+.quote_text {
+  flex: 1;
+  margin-right: 4rem; /* Abstand von 4rem rechts vom Text */
+  font-size: 1.25rem;
+}
+
+.quote_footer {
+  margin-top: 4rem; /* Abstand von 4rem oben zum Footer */
+  font-size: 1rem;
+}
+
+@media(max-width: 1504px) {
+  .quote_block {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
+@media(max-width: 1039px) {
+  .quote_text {
+    margin-right: 0;
+  }
+
+  .quote_block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .quote_icon_text {
+    margin-top: 4rem;
+  }
+}
+
+@media(max-width: 600px) {
+  .quote_icon {
+    display: none;
+  }
+}

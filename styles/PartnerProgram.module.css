@@ -1,0 +1,79 @@
+@media (prefers-color-scheme: dark) {
+    .container {
+        background-color: var(--telekom-color-background-surface-subtle);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .container {
+        background-color: #ededed;
+    }
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+  
+  .container_width {
+    width: 100%;
+    max-width: var(--scl-grid-max-width);
+  }
+
+.program_container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    gap: 2rem;
+}
+
+.program_item {
+    flex: 1 1 calc(50% - 2rem); /* separate properties for IE11 upport */
+    height: auto;
+    width: 100%;
+    /* margin-left: 0.5rem;
+    margin-right: 0.5rem; */
+}
+
+.program_item > h2 {
+    margin-top: 0;
+}
+
+@media(max-width: 1039px) {
+    .program_item {
+        flex-basis: 100%;
+        display: grid;
+        justify-content: center;
+    }
+
+    .program_item > h2 {
+        text-align: center;
+    }
+
+    .program_container {
+        justify-content: space-around;
+    }
+
+}
+
+.padding_m {
+    padding: 2rem;
+}
+
+.odd_program {
+    flex-direction: row-reverse;
+}
+
+.margin_bottom {
+    margin-bottom: 4rem;
+}
+
+.gap {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}

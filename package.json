@@ -1,0 +1,28 @@
+{
+  "name": "partnerportal-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "node lib/fetch_media.mjs && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "serve": "npx serve out",
+    "test": "node lib/fetch_media.mjs"
+  },
+  "dependencies": {
+    "@telekom/scale-components": "^3.0.0-beta.139",
+    "@telekom/scale-components-react": "^3.0.0-beta.139",
+    "dotenv": "^16.3.1",
+    "eslint-config-next": "13.4.2",
+    "file-loader": "^6.2.0",
+    "fs-extra": "^11.1.1",
+    "next": "^13.4.4",
+    "node-fetch": "^3.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "serve": "^14.2.1",
+    "styled-components": "^5.3.11",
+    "url-loader": "^4.1.1"
+  }
+}
