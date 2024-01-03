@@ -38,5 +38,5 @@ next-env.d.ts
 # API folder
 public/api*
 
-# TEMPORARY
-# partners.js
+# custom files
+package-lock.js
