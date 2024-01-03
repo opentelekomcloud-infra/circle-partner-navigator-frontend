@@ -4,12 +4,9 @@ import HeroImage from "@/components/HeroImage"
 import PartnerContactForm from "@/components/ContactForm"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import TwoColumnsWithPicture from "@/components/TwoColumnsWithPicture"
-import { getAllPartners, getAllTags } from '@/lib/partners';
+import { getAllPartners, getAllTags, getAllWebAssets } from '@/lib/partners';
 import Head from "next/head"
 
-const hero_image = {
-  image: "open-telekom-cloud-loesungen-partner-stage-1920x300.webp"
-}
 
 const intro = {
   image: "Circle-Partner-tp.webp",
@@ -18,12 +15,14 @@ const intro = {
   text: ["Many start-ups and cloud service providers already work together with us an partners, using our technology and infrastructure for their cloud projects. This is a testament to their trust in the Open Telekom Cloud and our great partnership.", "You can start using these services today to improve your IT systems or your company's communications and benefit from the advantages of the GDPR-compliant European cloud."]
 }
 
-
 export default async function App() {
   // representation of first page
   const cachedPartnersData = await getAllPartners();
   const cachedTagsData = await getAllTags();
   const metadata = await generateMetadata();
+  const webAssets = await getAllWebAssets();
+  const hero_image = webAssets.find(asset => asset.attributes.name === 'otc-icon')
+
   return (
         <div>
           <Head>
