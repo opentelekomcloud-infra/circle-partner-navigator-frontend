@@ -19,7 +19,7 @@ function TwoColumnsWithPicture({props}) {
                     </div>
                     <div className={`${styles.item} ${styles.image_item}`} >
                         <Image
-                            src={require(`/public/${props["image"]}`)}
+                            src={`/api/${props["image"]}`}
                             alt={props["image"]}
                             style={{maxHeight: `${props["img_height"]}`}}
                             className={styles.image}></Image>

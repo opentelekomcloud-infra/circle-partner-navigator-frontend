@@ -18,9 +18,6 @@ function Header({ props }) {
         <scale-telekom-nav-item aria-label="Partner Navigator">
           <Link href="/">Partner Navigator</Link>
         </scale-telekom-nav-item>
-        <scale-telekom-nav-item aria-label="Partner Programs">
-          <Link href="/partner_programs">Partner Programs</Link>
-        </scale-telekom-nav-item>
       </scale-telekom-nav-list>
       <scale-telekom-nav-list
         slot="lang-switcher"
@@ -75,9 +72,6 @@ function Header({ props }) {
                   current-level="0"
                 >
                   <Link href="/">Partner Navigator</Link>
-                </scale-telekom-mobile-menu-item>
-                <scale-telekom-mobile-menu-item>
-                  <Link href="/partner_programs">Partner Programs</Link>
                 </scale-telekom-mobile-menu-item>
               </scale-telekom-mobile-menu>
             </scale-telekom-mobile-flyout-canvas>

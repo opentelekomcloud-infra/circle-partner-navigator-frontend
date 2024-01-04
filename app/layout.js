@@ -7,16 +7,6 @@ import { defineCustomElements, applyPolyfills } from '@telekom/scale-components/
 import '@telekom/scale-components/dist/scale-components/scale-components.css';
 import { useLayoutEffect } from 'react'
 
-const headerLinks = [
-  {
-    label: 'Partner Navigator',
-    url: '/'
-  },
-  {
-    label: 'Partner programs',
-    url: '/partner_programs'
-  },
-]
 
 export default function RootLayout({ children }) {
   useLayoutEffect(() => {
@@ -27,8 +17,11 @@ export default function RootLayout({ children }) {
   }, [])
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body>
-        <Header props={headerLinks}></Header>
+        <Header></Header>
         {children}
         <Footer></Footer>
       </body>
