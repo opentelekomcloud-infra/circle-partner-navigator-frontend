@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect} from 'react';
-import styles from '/styles/PartnerListing.module.css';
-import Card from '/components/Card'
-import CardFlexBox from '/components/CardFlexBox'
+import styles from '../styles/PartnerListing.module.css';
+import Card from '../components/Card'
+import CardFlexBox from '../components/CardFlexBox'
 import { ScaleChip } from '@telekom/scale-components-react';
 
 

@@ -1,4 +1,4 @@
-import styles from '/styles/Index_Header.module.css';
+import styles from '../styles/Index_Header.module.css';
 
 
 

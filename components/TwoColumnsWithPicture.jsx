@@ -1,4 +1,4 @@
-import styles from '/styles/TwoColumnsWithPicture.module.css';
+import styles from '../styles/TwoColumnsWithPicture.module.css';
 import Image from 'next/image';
 
 

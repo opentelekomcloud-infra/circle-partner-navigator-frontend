@@ -11,18 +11,23 @@
     "test": "node lib/fetch_media.mjs"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "0.2.32",
     "@telekom/scale-components": "^3.0.0-beta.139",
     "@telekom/scale-components-react": "^3.0.0-beta.139",
     "dotenv": "^16.3.1",
     "eslint-config-next": "13.4.2",
     "file-loader": "^6.2.0",
     "fs-extra": "^11.1.1",
-    "next": "^13.4.4",
+    "negotiator": "^0.6.3",
+    "next": "^14.0.5-canary.43",
     "node-fetch": "^3.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "serve": "^14.2.1",
     "styled-components": "^5.3.11",
     "url-loader": "^4.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
   }
 }

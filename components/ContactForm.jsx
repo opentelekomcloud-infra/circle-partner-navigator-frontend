@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import styles from '@/styles/ContactForm.module.css';
+import styles from '../styles/ContactForm.module.css';
 
 
 function PartnerContactForm({prop}) {

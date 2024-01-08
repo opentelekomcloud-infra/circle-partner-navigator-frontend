@@ -1,11 +1,12 @@
-import Overview from '@/components/Overview';
-import Feature from '@/components/Feature';
-import Teaser from '@/components/Teaser';
-import { getAllPartners } from '@/lib/partners';
-import PartnerContactForm from "@/components/ContactForm"
-import Quotation from "@/components/Quotation"
-import Breadcrumbs from '@/components/Breadcrumbs';
+import Overview from '../../../../components/Overview';
+import Feature from '../../../../components/Feature';
+import Teaser from '../../../../components/Teaser';
+import { getAllPartners } from '../../../../lib/partners';
+import PartnerContactForm from "../../../../components/ContactForm"
+import Quotation from "../../../../components/Quotation"
+import Breadcrumbs from '../../../../components/Breadcrumbs';
 import Head from 'next/head';
+import path from 'path';
 
 let cachedPartnersData = null;
 
@@ -20,13 +21,13 @@ async function getCachedPartnersData() {
 export default async function Page({ params }) {
     // function to create partner pages
 
-    const { partner } = params;
+    const { partner } = params.partner;
     const partners = await getCachedPartnersData()
 
     // From all partners the one with the correct partner data is being collected.
     let partnerData = partners.find(element => element.attributes.partner_id === params.partner);
 
-    const metadata = await generateMetadata({params});
+    // const metadata = await generateMetadata({params});
 
     // Overview
     const overviewContent = {
@@ -68,10 +69,10 @@ export default async function Page({ params }) {
     
     return (
         <div>
-            <Head>
+            {/* <Head>
                 <title>{metadata.title}</title>
                 <meta name="description" content={metadata.description} />
-            </Head>
+            </Head> */}
             <Breadcrumbs props={breadcrumbs}></Breadcrumbs>
             <Overview props={overviewContent}></Overview>
             <Teaser props={teaserContent}></Teaser>
@@ -90,19 +91,21 @@ export default async function Page({ params }) {
     )
 }
 
-export async function generateStaticParams() {
+export async function generateStaticParams({params: {lang}}) {
     const partners = await getCachedPartnersData()
+    console.log(lang)
     return partners.map((partner) => ({
+        lang: lang,
         partner: partner.attributes.partner_id
     }));
 }   
 
-export async function generateMetadata({ params }) {
-    const partners = await getCachedPartnersData()
-    let partnerData = partners.find(element => element.attributes.partner_id === params.partner);
-    return {
-        title: partnerData.attributes.overview_headline,
-        description: partnerData.attributes.overview_description
-    };
+// export async function generateMetadata({ params }) {
+//     const partners = await getCachedPartnersData()
+//     let partnerData = partners.find(element => element.attributes.partner_id === params.partner);
+//     return {
+//         title: partnerData.attributes.overview_headline,
+//         description: partnerData.attributes.overview_description
+//     };
     
-}
+// }
