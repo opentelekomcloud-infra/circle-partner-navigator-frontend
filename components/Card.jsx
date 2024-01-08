@@ -15,7 +15,7 @@ function Card({props}) {
 
     return (
                 <div className={styles.card_container}>
-                    <Link href={`/partners/${partner.attributes.partner_id}`}>
+                    <Link href={`/en/partners/${partner.attributes.partner_id}`}>
                         <div className={styles.card_body}>
                             <Image
                                 src={`/api/${overviewMedia}`}
