@@ -10,8 +10,8 @@ import { i18n } from '/lib/i18n_config'
 
 
 export default function RootLayout({ children, params }) {
+  // For Scale
   useLayoutEffect(() => {
-    // crap which needs to be added to use scale framework
     applyPolyfills().then(() => {
       defineCustomElements(window)
     })
