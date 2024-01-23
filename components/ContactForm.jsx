@@ -10,10 +10,18 @@ function PartnerContactForm({prop}) {
     const sendEmail = (event) => {
         event.preventDefault(); // Prevent reloading of the page
 
+        let messageContent = {}
         const formData = new FormData(event.target);
         formData.forEach((value, key) => {
-            console.log(`${key}: ${value}`);
+            if (key === "checkbox") {
+                return;
+            } else {
+                messageContent[`${key}`] = `${value}`
+            }
         });
+
+        console.log(messageContent)
+
     }
 
     return (
@@ -27,23 +35,23 @@ function PartnerContactForm({prop}) {
                         label="Salutation*"
                         class={styles.radio_buttons}>
                         <scale-radio-button
-                            value="1"
+                            value="Ms. / Mrs."
                             label="Ms. / Mrs."
                             checked="true"
-                            name="radioSalutation"
+                            name="Salutation"
                             transparent="true"
                             input-id="choiceStandardOne"
                         ></scale-radio-button>
                         <scale-radio-button
-                            value="2"
+                            value="Mr."
                             label="Mr."
-                            name="radioSalutation"
+                            name="Salutation"
                             input-id="choiceStandardTwo"
                         ></scale-radio-button>
                         <scale-radio-button
-                            value="3"
+                            value="Mx."
                             label="Mx."
-                            name="radioSalutation"
+                            name="Salutation"
                             input-id="choiceStandardThree"
                         ></scale-radio-button>
                     </scale-radio-button-group>                
