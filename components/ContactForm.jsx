@@ -3,11 +3,12 @@
 import React from 'react';
 import styles from '@/styles/ContactForm.module.css';
 import { ScaleButton } from '@telekom/scale-components-react';
+import sendEmail from '@/lib/helpers'
 
 
 function PartnerContactForm({prop}) {
 
-    const sendEmail = (event) => {
+    const sendEmailButton = (event) => {
         event.preventDefault(); // Prevent reloading of the page
 
         let messageContent = {}
@@ -20,7 +21,9 @@ function PartnerContactForm({prop}) {
             }
         });
 
+        const response = sendEmail(messageContent)
         console.log(messageContent)
+        console.log(response)
 
     }
 
@@ -30,7 +33,7 @@ function PartnerContactForm({prop}) {
                 <h2 className={styles.center}>
                     Do you have questions about the Open Telekom Cloud partner programs?
                 </h2>
-                <form className={styles.form_wrapper} onSubmit={sendEmail}>
+                <form className={styles.form_wrapper} onSubmit={sendEmailButton}>
                     <scale-radio-button-group
                         label="Salutation*"
                         class={styles.radio_buttons}>
