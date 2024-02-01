@@ -5,27 +5,35 @@ import styles from '@/styles/ContactForm.module.css';
 import { ScaleButton } from '@telekom/scale-components-react';
 import sendEmail from '@/lib/helpers'
 
+const sendEmailButton = async (event) => {
+    event.preventDefault(); // Prevent reloading of the page
+
+    let messageContent = {}
+    const formData = new FormData(event.target);
+    formData.forEach((value, key) => {
+        if (key === "checkbox") {
+            return;
+        } else {
+            messageContent[`${key}`] = `${value}`
+        }
+    });
+
+    const response = await sendEmail(messageContent)
+    console.log(response)
+
+    if (response["status"] !== "success") {
+        alert(`Something went wrong: ${response["message"]}`)
+    }
+    else if (response["status"] === "success") {
+        event.target.reset();
+        alert(`E-Mail successfully sent!`)
+    }
+
+}
 
 function PartnerContactForm({prop}) {
 
-    const sendEmailButton = (event) => {
-        event.preventDefault(); // Prevent reloading of the page
-
-        let messageContent = {}
-        const formData = new FormData(event.target);
-        formData.forEach((value, key) => {
-            if (key === "checkbox") {
-                return;
-            } else {
-                messageContent[`${key}`] = `${value}`
-            }
-        });
-
-        const response = sendEmail(messageContent)
-        console.log(messageContent)
-        console.log(response)
-
-    }
+    
 
     return (
         <div className={styles.container}>
