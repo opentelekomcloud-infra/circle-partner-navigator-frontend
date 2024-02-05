@@ -23,6 +23,8 @@ push-image:
   image:
     name: gcr.io/kaniko-project/executor:v1.14.0-debug
     entrypoint: [""]
+  before_script:
+     - echo "{\"auths\":{\"$QUAY_REGISTRY\":{\"username\":\"$QUAY_REGISTRY_USER\",\"password\":\"$QUAY_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
   script:
     - /kaniko/executor
       --context "${CI_PROJECT_DIR}"
