@@ -17,4 +17,4 @@ build:
     - docker build 
       --build-arg BASE_URL=$BASE_URL 
       --build-arg AUTH_TOKEN=$AUTH_TOKEN
-      -t $QUAY_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_SHORT_SHA
+      -t $QUAY_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_SHORT_SHA .
