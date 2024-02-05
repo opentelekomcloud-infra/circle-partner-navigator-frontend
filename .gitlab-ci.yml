@@ -29,4 +29,4 @@ push-image:
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --build-arg BASE_URL=$BASE_URL 
       --build-arg AUTH_TOKEN=$AUTH_TOKEN
-      --destination "${QUAY_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_SHORT_SHA}"
+      --destination "${QUAY_REGISTRY}${CI_PROJECT_NAME}:${CI_COMMIT_SHORT_SHA}"
