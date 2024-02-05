@@ -2,9 +2,9 @@
 
 # Default configuration for the pipeline
 default:
-  image: docker:19.0.3
+  image: docker:19.03
   services:
-    - docker:19.0.3-dind
+    - docker:19.03-dind
   before_script:
     - docker info
 
@@ -14,7 +14,7 @@ stages:
 
 # Define variables to be used in the pipeline
 variables:
-  DOCKER_HOST: tcp://docker:2375
+  DOCKER_HOST: tcp://docker:2376
   DOCKER_TLS_CERTDIR: "/certs"
 
 # Build stage
