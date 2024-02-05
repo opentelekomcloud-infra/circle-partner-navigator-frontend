@@ -3,8 +3,6 @@
 # Default configuration for the pipeline
 default:
   image: docker:19.03
-  services:
-    - docker:19.03-dind
   before_script:
     - docker info
 
