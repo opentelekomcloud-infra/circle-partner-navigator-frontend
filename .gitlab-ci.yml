@@ -5,16 +5,15 @@ default:
   before_script:
     - docker info
 
-variables:
-  DOCKER_HOST: tcp://docker:2375
-  DOCKER_TLS_CERTDIR: ""
-
 stages:
   - build
 
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: "/certs"
+
 build:
   stage: build
-  image: docker:latest
   before_script:
     - until docker info; do sleep 1; done
     - docker login -u $QUAY_REGISTRY_USER -p $QUAY_REGISTRY_PASSWORD $QUAY_REGISTRY
