@@ -6,21 +6,14 @@ stages:
 
 # Build stage
 build:
-  image: docker:cli
-  services:
-    - name: docker:dind
-      alias: docker
-      command: ["--tls=false"]
-  variables:
-    DOCKER_DRIVER: overlay2
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
   stage: build
-  before_script:
-    - until docker info; do sleep 1; done
-    - docker login -u $QUAY_REGISTRY_USER -p $QUAY_REGISTRY_PASSWORD $QUAY_REGISTRY
+  image:
+    name: gcr.io/kaniko-project/executor:v1.14.0-debug
+    entrypoint: [""]
   script:
-    - docker build 
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --build-arg BASE_URL=$BASE_URL 
       --build-arg AUTH_TOKEN=$AUTH_TOKEN
-      -t $QUAY_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_SHORT_SHA .
+      --no-push
