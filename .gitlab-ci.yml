@@ -1,36 +1,21 @@
-# This YAML file defines the GitLab CI/CD pipeline configuration for the circle-partner-navigator-frontend project.
+include:
+  - project: boilerplate/kaniko
+    file: kaniko-job.gitlab-ci.yml
 
-# Define the stages for the pipeline
-stages:
-  - build
-
-# Build stage
+variables:
+  KANIKO_JOB_ARGS: "--build-arg BASE_URL=$BASE_URL --build-arg AUTH_TOKEN=$AUTH_TOKEN"
+  DOCKER_IMAGE_NAME: "${QUAY_REGISTRY}${CI_PROJECT_NAME}:${CI_COMMIT_TAG}"
+ 
 build:
-  stage: build
-  image:
-    name: gcr.io/kaniko-project/executor:v1.14.0-debug
-    entrypoint: [""]
-  script:
-    - /kaniko/executor
-      --context "${CI_PROJECT_DIR}"
-      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-      --build-arg BASE_URL=$BASE_URL 
-      --build-arg AUTH_TOKEN=$AUTH_TOKEN
-      --no-push
+  extends:
+    - .kaniko_build
 
 push-image:
-  stage: build
-  image:
-    name: gcr.io/kaniko-project/executor:v1.14.0-debug
-    entrypoint: [""]
+  variables:
+    KANIKO_PUSH: "true"
   before_script:
-     - echo "{\"auths\":{\"$QUAY_REGISTRY\":{\"username\":\"$QUAY_REGISTRY_USER\",\"password\":\"$QUAY_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-  script:
-    - /kaniko/executor
-      --context "${CI_PROJECT_DIR}"
-      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-      --build-arg BASE_URL=$BASE_URL 
-      --build-arg AUTH_TOKEN=$AUTH_TOKEN
-      --destination "${QUAY_REGISTRY}${CI_PROJECT_NAME}:${CI_COMMIT_TAG}"
+    - echo "{\"auths\":{\"$QUAY_REGISTRY\":{\"username\":\"$QUAY_REGISTRY_USER\",\"password\":\"$QUAY_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+  extends:
+    - .kaniko_build
   only:
     - tags
