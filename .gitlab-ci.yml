@@ -1,17 +1,23 @@
+# This YAML file defines the GitLab CI/CD pipeline configuration for the circle-partner-navigator-frontend project.
+
+# Default configuration for the pipeline
 default:
-  image: docker:24.0.5
+  image: docker:19.0.3
   services:
-    - docker:24.0.5-dind
+    - docker:19.0.3-dind
   before_script:
     - docker info
 
+# Define the stages for the pipeline
 stages:
   - build
 
+# Define variables to be used in the pipeline
 variables:
   DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_CERTDIR: "/certs"
 
+# Build stage
 build:
   stage: build
   before_script:
