@@ -17,3 +17,16 @@ build:
       --build-arg BASE_URL=$BASE_URL 
       --build-arg AUTH_TOKEN=$AUTH_TOKEN
       --no-push
+
+push-image:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.14.0-debug
+    entrypoint: [""]
+  script:
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --build-arg BASE_URL=$BASE_URL 
+      --build-arg AUTH_TOKEN=$AUTH_TOKEN
+      --destination "${QUAY_REGISTRY}/${CI_PROJECT_NAME}:${CI_COMMIT_SHORT_SHA}"
