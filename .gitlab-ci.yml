@@ -14,6 +14,8 @@ variables:
   DOCKER_IMAGE_NAME: "${QUAY_REGISTRY}${CI_PROJECT_NAME}:${CI_COMMIT_TAG}"
  
 build:
+  variables:
+    KANIKO_PUSH: "false"
   extends:
     - .kaniko_build
 
