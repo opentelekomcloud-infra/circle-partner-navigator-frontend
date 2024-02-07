@@ -22,11 +22,33 @@ const sendEmailButton = async (event) => {
     console.log(response)
 
     if (response["status"] !== "success") {
-        alert(`Something went wrong: ${response["message"]}`)
+        const notificationHTML = `
+            <scale-notification
+            heading="Something went wrong while sending your E-Mail."
+            dismissible
+            opened
+            variant="danger"
+            >
+            <span slot="text">Feel free to open an issue on the following page: https://github.com/opentelekomcloud-infra/circle-partner-navigator-frontend/issues</span>
+            <span slot="text">Error Code: ${response["message"]}</span>
+            </scale-notification>
+        `
+        document.getElementById("contactSubmitButton").insertAdjacentHTML("beforebegin", notificationHTML)
     }
     else if (response["status"] === "success") {
         event.target.reset();
-        alert(`E-Mail successfully sent!`)
+        const notificationHTML = `
+            <scale-notification
+            heading="E-Mail sent successfully. We will answer your request soon."
+            dismissible
+            opened
+            delay="6000"
+            variant="success"
+            >
+            </scale-notification>
+        `
+        document.getElementById("contactSubmitButton").insertAdjacentHTML("beforebegin", notificationHTML)
+        // alert(`E-Mail successfully sent!`)
     }
 
 }
@@ -110,6 +132,7 @@ function PartnerContactForm({prop}) {
                         >
                     </scale-checkbox>
                     <ScaleButton
+                        id="contactSubmitButton"
                         type="submit"
                         >Submit
                     </ScaleButton>                
