@@ -11,17 +11,18 @@ include:
 
 variables:
   KANIKO_JOB_ARGS: "--build-arg BASE_URL=$BASE_URL --build-arg AUTH_TOKEN=$AUTH_TOKEN"
-  DOCKER_REGISTRY_IMAGE: "${QUAY_REGISTRY}${CI_PROJECT_NAME}:${CI_COMMIT_TAG}"
- 
+
 build:
   variables:
     KANIKO_PUSH: "false"
+    DOCKER_REGISTRY_IMAGE: "${QUAY_REGISTRY}${CI_PROJECT_NAME}:${CI_COMMIT_SHORT_SHA}"
   extends:
     - .kaniko_build
 
 push-image:
   variables:
     KANIKO_PUSH: "true"
+    DOCKER_REGISTRY_IMAGE: "${QUAY_REGISTRY}${CI_PROJECT_NAME}:${CI_COMMIT_TAG}"
   before_script:
     - echo "{\"auths\":{\"$QUAY_REGISTRY\":{\"username\":\"$QUAY_REGISTRY_USER\",\"password\":\"$QUAY_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
   extends:
