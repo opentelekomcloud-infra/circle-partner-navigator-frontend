@@ -29,8 +29,8 @@ const sendEmailButton = async (event) => {
             opened
             variant="danger"
             >
-            <span slot="text">Feel free to open an issue on the following page: https://github.com/opentelekomcloud-infra/circle-partner-navigator-frontend/issues</span>
-            <span slot="text">Error Code: ${response["message"]}</span>
+            <span slot="text">Feel free to open an issue on the following page: <a href="https://github.com/opentelekomcloud-infra/circle-partner-navigator-frontend/issues">https://github.com/opentelekomcloud-infra/circle-partner-navigator-frontend/issues</a></span>
+            <p slot="text">Error Code: ${response["message"]}</p>
             </scale-notification>
         `
         document.getElementById("contactSubmitButton").insertAdjacentHTML("beforebegin", notificationHTML)
