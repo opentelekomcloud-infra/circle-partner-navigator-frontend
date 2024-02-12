@@ -1,5 +1,5 @@
 # Use the ubi8 Node.js 20 image as the base image
-FROM registry.access.redhat.com/ubi8/nodejs-20:1-22
+FROM registry.access.redhat.com/ubi8/nodejs-20:1-22 as build
 
 ARG NODE_ENV
 ARG AUTH_TOKEN
@@ -23,8 +23,16 @@ COPY . .
 
 RUN npm run build
 
-# Expose a port (if your application listens on a specific port)
-EXPOSE 3000
+## now add the build to nginx
+FROM nginx:alpine
 
-# Start the application
-CMD [ "npm", "run", "serve" ]
+RUN rm /usr/share/nginx/html/*
+
+# Copy the build to the nginx directory
+COPY --from=build /app/out /usr/share/nginx/html
+
+# Expose port 8080
+EXPOSE 80
+
+# Start Nginx server
+CMD ["nginx", "-g", "daemon off;"]
