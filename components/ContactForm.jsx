@@ -48,7 +48,6 @@ const sendEmailButton = async (event) => {
             </scale-notification>
         `
         document.getElementById("contactSubmitButton").insertAdjacentHTML("beforebegin", notificationHTML)
-        // alert(`E-Mail successfully sent!`)
     }
 
 }
