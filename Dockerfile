@@ -31,7 +31,7 @@ RUN rm /usr/share/nginx/html/*
 # Copy the build to the nginx directory
 COPY --from=build /app/out /usr/share/nginx/html
 
-# Expose port 8080
+# Expose port 80
 EXPOSE 80
 
 # Start Nginx server
