@@ -37,6 +37,3 @@ next-env.d.ts
 
 # API folder
 public/api*
-
-# custom files
-package-lock.json
