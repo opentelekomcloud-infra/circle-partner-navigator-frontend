@@ -4,9 +4,12 @@ import React from 'react';
 import styles from '@/styles/ContactForm.module.css';
 import { ScaleButton } from '@telekom/scale-components-react';
 import sendEmail from '@/lib/helpers'
+import Captcha from '/components/Captcha';
 
 const sendEmailButton = async (event) => {
     event.preventDefault(); // Prevent reloading of the page
+
+    // console.log(document.getElementById("mcaptcha__token").value)
 
     let messageContent = {}
     const formData = new FormData(event.target);
@@ -17,6 +20,7 @@ const sendEmailButton = async (event) => {
             messageContent[`${key}`] = `${value}`
         }
     });
+    messageContent["captcha_token"] = document.getElementById("mcaptcha__token").value
 
     const response = await sendEmail(messageContent)
     console.log(response)
@@ -53,8 +57,6 @@ const sendEmailButton = async (event) => {
 }
 
 function PartnerContactForm({prop}) {
-
-    
 
     return (
         <div className={styles.container}>
@@ -134,7 +136,8 @@ function PartnerContactForm({prop}) {
                         id="contactSubmitButton"
                         type="submit"
                         >Submit
-                    </ScaleButton>                
+                    </ScaleButton>
+                    <Captcha></Captcha>                
                 </form>
             </div>
         </div>
