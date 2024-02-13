@@ -16,13 +16,17 @@ const sendEmailButton = async (event) => {
     formData.forEach((value, key) => {
         if (key === "checkbox") {
             return;
-        } else {
+        } else if (key === "mcaptcha__token") {
+            return;
+        }
+        else {
             messageContent[`${key}`] = `${value}`
         }
     });
-    messageContent["captcha_token"] = document.getElementById("mcaptcha__token").value
+    const captcha_token = document.getElementById("mcaptcha__token").value
+    const captcha_sitekey = "RxZhnXBKERnTNRUAuNABst0v1Zvj5DZe"
 
-    const response = await sendEmail(messageContent)
+    const response = await sendEmail(messageContent, captcha_token, captcha_sitekey)
     console.log(response)
 
     if (response["status"] !== "success") {
