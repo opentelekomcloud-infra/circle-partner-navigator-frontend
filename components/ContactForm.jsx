@@ -139,7 +139,7 @@ function PartnerContactForm({prop}) {
                         label="Yes, I herewith consent to the use of the data I supplied by T-Systems International GmbH for the purpose of giving advice on products and providing me with information by e-mail, post, telephone or online. Under the consent I have given here, the data shall be forwarded for these purposes exclusively within T-Systems International GmbH and Telekom Deutschland GmbH. I am entitled to withdraw my consent at any time by writing to T-Systems International GmbH (E-Mail: MAC-Support@telekom.de). I confirm that I have taken note of the information regarding the right to withdraw consent and of the privacy information. *"
                         >
                     </scale-checkbox>                    
-                    <div class="captcha">
+                    <div id="captcha">
                         <Captcha props={captchaSettings}></Captcha>
                     </div>    
                     <ScaleButton
