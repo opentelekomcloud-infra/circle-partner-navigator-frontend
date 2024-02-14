@@ -87,7 +87,7 @@ function PartnerListing({
                     <p>ERROR: allTags data not available.</p>
                 )}
                 {/* Search field */}
-                <scale-text-field label="Search for solutions in the Circle Partner Program"></scale-text-field>
+                {/* <scale-text-field label="Search for solutions in the Circle Partner Program"></scale-text-field> */}
                 {/* Partner Listing */}
                 {/* {console.log('return partner data: ', partners)} */}
                 {partners ? (
