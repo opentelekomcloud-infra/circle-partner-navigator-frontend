@@ -129,13 +129,6 @@ function PartnerContactForm({prop}) {
                         name="phone"
                         class={styles.item}
                     ></scale-text-field>
-                    {/* <scale-textarea
-                        label="Your Message"
-                        rows="3"
-                        resize="vertical"
-                        name="message"
-                        class={styles.message}
-                    ></scale-textarea> */}
                     <ScaleTextarea
                         label="Your Message*"
                         rows="3"
