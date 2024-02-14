@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styles from '@/styles/ContactForm.module.css';
-import { ScaleButton } from '@telekom/scale-components-react';
+import { ScaleButton, ScaleTextarea } from '@telekom/scale-components-react';
 import sendEmail from '@/lib/helpers'
 import Captcha from '/components/Captcha';
 
@@ -61,6 +61,10 @@ const sendEmailButton = async (event) => {
         document.getElementById("contactSubmitButton").insertAdjacentHTML("beforebegin", notificationHTML)
     }
 
+}
+
+const renderCaptcha = (event) => {
+    document.getElementById("captcha").classList.remove(`${styles.no_display}`)
 }
 
 function PartnerContactForm({prop}) {
@@ -125,13 +129,22 @@ function PartnerContactForm({prop}) {
                         name="phone"
                         class={styles.item}
                     ></scale-text-field>
-                    <scale-textarea
+                    {/* <scale-textarea
                         label="Your Message"
                         rows="3"
                         resize="vertical"
                         name="message"
                         class={styles.message}
-                    ></scale-textarea>
+                    ></scale-textarea> */}
+                    <ScaleTextarea
+                        label="Your Message*"
+                        rows="3"
+                        resize="vertical"
+                        name="message"
+                        required="true"
+                        onScale-input={renderCaptcha}
+                        class={styles.message}
+                    ></ScaleTextarea>
                     <scale-checkbox
                         class={styles.checkbox}
                         name="checkbox"
@@ -139,7 +152,7 @@ function PartnerContactForm({prop}) {
                         label="Yes, I herewith consent to the use of the data I supplied by T-Systems International GmbH for the purpose of giving advice on products and providing me with information by e-mail, post, telephone or online. Under the consent I have given here, the data shall be forwarded for these purposes exclusively within T-Systems International GmbH and Telekom Deutschland GmbH. I am entitled to withdraw my consent at any time by writing to T-Systems International GmbH (E-Mail: MAC-Support@telekom.de). I confirm that I have taken note of the information regarding the right to withdraw consent and of the privacy information. *"
                         >
                     </scale-checkbox>                    
-                    <div id="captcha">
+                    <div id="captcha" class={`${styles.captcha} ${styles.no_display}`}>
                         <Captcha props={captchaSettings}></Captcha>
                     </div>    
                     <ScaleButton
