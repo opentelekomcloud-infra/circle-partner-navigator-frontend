@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "node lib/fetch_media.mjs && next build",
+    "cached-build": "next build",
     "start": "next start",
     "lint": "next lint",
     "serve": "npx serve out",

@@ -44,7 +44,7 @@ function Header({ props }) {
           class="burger-item"
           hide-on-desktop="true">
           <button>
-            <scale-badge>
+            <scale-badge no-dot>
               <scale-icon-action-menu></scale-icon-action-menu>
             </scale-badge>
           </button>
