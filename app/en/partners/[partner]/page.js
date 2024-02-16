@@ -20,6 +20,8 @@ async function getCachedPartnersData() {
 export default async function Page({ params }) {
     // function to create partner pages
 
+    const locale = "en"
+
     const { partner } = params;
     const partners = await getCachedPartnersData()
 
@@ -27,16 +29,6 @@ export default async function Page({ params }) {
     let partnerData = partners.find(element => element.attributes.partner_id === params.partner);
 
     const metadata = await generateMetadata({params});
-
-    // Overview
-    const overviewContent = {
-        headline: partnerData["attributes"]["overview_headline"],
-        description: partnerData["attributes"]["overview_description"],
-        product_type: partnerData["attributes"]["overview_product_type"],
-        company: partnerData["attributes"]["overview_company_name"],
-        website: partnerData["attributes"]["overview_website"],
-        media: partnerData.attributes.overview_media.data.attributes
-    }
 
     // Teaser
     const teaserContent = {
@@ -73,7 +65,7 @@ export default async function Page({ params }) {
                 <meta name="description" content={metadata.description} />
             </Head>
             <Breadcrumbs props={breadcrumbs}></Breadcrumbs>
-            <Overview props={overviewContent}></Overview>
+            <Overview props={partnerData} locale={locale}></Overview>
             <Teaser props={teaserContent}></Teaser>
             {featuresContent.map(feature => {
                     return (
