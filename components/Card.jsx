@@ -29,9 +29,16 @@ function Card({props, locale}) {
         })
     }
 
+    let href_link = ""
+    if (locale === "en") {
+        href_link = "/en"
+    } else if (locale === "de-DE") {
+        href_link = "/de"
+    }
+
     return (
                 <div className={styles.card_container}>
-                    <Link href={`/partners/${partner.attributes.partner_id}`}>
+                    <Link href={`${href_link}/partners/${partner.attributes.partner_id}`}>
                         <div className={styles.card_body}>
                             <Image
                                 src={`/api/${overviewMedia}`}
