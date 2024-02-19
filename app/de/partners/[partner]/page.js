@@ -21,6 +21,7 @@ export default async function Page({ params }) {
     // function to create partner pages
 
     const locale = "de-DE"
+    const linkLocale = "de"
 
     const { partner } = params;
     const partners = await getCachedPartnersData()
@@ -43,11 +44,11 @@ export default async function Page({ params }) {
     const breadcrumbs = [
         {
             label: 'Partners',
-            url: '/partners',
+            url: `/${linkLocale}/partners`,
         },
         {
             label: partnerData.attributes.overview_headline,
-            url: `/partners/${partnerData.attributes.partner_id}`,
+            url: `/${linkLocale}/partners/${partnerData.attributes.partner_id}`,
         },
     ];
     
