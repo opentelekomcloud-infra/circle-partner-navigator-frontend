@@ -30,13 +30,6 @@ export default async function Page({ params }) {
 
     const metadata = await generateMetadata({params});
 
-    // Teaser
-    const teaserContent = {
-        headline: partnerData["attributes"]["teaser_headline"],
-        description: partnerData["attributes"]["teaser_description"],
-        media: partnerData.attributes.teaser_media.data.attributes
-    }
-
     // Features
     const featuresContent = partnerData["attributes"]["features"]["data"]
 
@@ -66,7 +59,7 @@ export default async function Page({ params }) {
             </Head>
             <Breadcrumbs props={breadcrumbs}></Breadcrumbs>
             <Overview props={partnerData} locale={locale}></Overview>
-            <Teaser props={teaserContent}></Teaser>
+            <Teaser props={partnerData} locale={locale}></Teaser>
             {featuresContent.map(feature => {
                     return (
                         <Feature key={feature["id"]} props={feature}></Feature>
