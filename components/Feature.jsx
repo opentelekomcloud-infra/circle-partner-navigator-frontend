@@ -4,12 +4,28 @@ import Image from 'next/image';
 
 
 
-function Feature({props}) {
+function Feature({props, locale}) {
 
     let media = props["attributes"]["media"]["data"]["attributes"]
     let mediaName = `${media.hash}${media.ext}`
     let mediaSrc = `/api/${media.hash}${media.ext}`
     const mediaType = media.mime.split('/')[0];
+
+    let headline = ""
+    let description = ""
+
+    if (locale === "en") {
+        headline = props["attributes"]["headline"]
+        description = props["attributes"]["description"]
+    } else {
+        props.attributes.localizations.data.map(partner_localization => {
+            if (partner_localization.attributes.locale === locale) {
+                headline = partner_localization.attributes.headline
+                description = partner_localization.attributes.description
+            }
+        })
+    }
+
 
     return (
         <div className="container">
@@ -35,11 +51,11 @@ function Feature({props}) {
                     </div>
                     <div className={`${styles.feature_item} ${styles.feature_item_text}`}>
                         <div className={styles.feature_item}>
-                            <h3>{props["attributes"]["headline"]}</h3>
+                            <h3>{headline}</h3>
                         </div>
 
                         <div className={styles.feature_item}>
-                            <p>{props["attributes"]["description"]}</p>
+                            <p>{description}</p>
                         </div>
                     </div>
                 </div>

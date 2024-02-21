@@ -9,7 +9,8 @@ import { ScaleChip } from '@telekom/scale-components-react';
 
 function PartnerListing({
     cachedPartners,
-    cachedTags
+    cachedTags,
+    locale
 }) {    
     // 'Partner Navigator' where partners are listed with tags
     const [allTags, setAllTags] = useState(cachedTags)
@@ -94,7 +95,7 @@ function PartnerListing({
                     <CardFlexBox>
                         {partners.map(partner => {
                             return (
-                                <Card key={partner.attributes.partner_id} props={partner}></Card>
+                                <Card key={partner.attributes.partner_id} props={partner} locale={locale}></Card>
                             );
                         })}
                     </CardFlexBox>
