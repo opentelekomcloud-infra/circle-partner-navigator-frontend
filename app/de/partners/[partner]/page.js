@@ -31,9 +31,6 @@ export default async function Page({ params }) {
 
     const metadata = await generateMetadata({params});
 
-    // Features
-    const featuresContent = partnerData["attributes"]["features"]["data"]
-
     // Quote
     let quote = {}
     if (partnerData.attributes.quotes.data) {
@@ -61,9 +58,9 @@ export default async function Page({ params }) {
             <Breadcrumbs props={breadcrumbs}></Breadcrumbs>
             <Overview props={partnerData} locale={locale}></Overview>
             <Teaser props={partnerData} locale={locale}></Teaser>
-            {featuresContent.map(feature => {
+            {partnerData["attributes"]["features"]["data"].map(feature => {
                     return (
-                        <Feature key={feature["id"]} props={feature}></Feature>
+                        <Feature key={feature["id"]} props={feature} locale={locale}></Feature>
                     )
             })}
             {/* Test if quote is existing */}
