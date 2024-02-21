@@ -34,6 +34,7 @@ export default async function Page({ params }) {
     // Quote
     let quote = {}
     if (partnerData.attributes.quotes.data) {
+        // prevent more than one quote
         quote = partnerData.attributes.quotes.data[0]
     }
 
@@ -65,7 +66,7 @@ export default async function Page({ params }) {
             })}
             {/* Test if quote is existing */}
             {quote && (
-                <Quotation props={quote}></Quotation>               
+                <Quotation props={quote} locale={locale}></Quotation>               
             )}
             <PartnerContactForm></PartnerContactForm>
 
