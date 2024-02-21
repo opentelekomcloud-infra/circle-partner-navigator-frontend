@@ -72,14 +72,11 @@ function Header({ props }) {
                 slot="mobile-before-main-nav"
                 alignment="left"
               >
-                <scale-telekom-nav-item active>
-                  <Link href="#">EN</Link>
+                <scale-telekom-nav-item active={lang === 'en'}>
+                  <a onClick={(e) => handleClick(e, 'en')}>EN</a>
                 </scale-telekom-nav-item>
-                <scale-telekom-nav-item>
-                  <Link href="#">DE</Link>
-                </scale-telekom-nav-item>
-                <scale-telekom-nav-item>
-                  <Link href="#">NL</Link>
+                <scale-telekom-nav-item active={lang === 'de'}>
+                  <a onClick={(e) => handleClick(e, 'de')}>DE</a>
                 </scale-telekom-nav-item>
               </scale-telekom-nav-list>
               <scale-telekom-mobile-menu slot="mobile-main-nav">
