@@ -2,7 +2,7 @@ import Overview from '@/components/Overview';
 import Feature from '@/components/Feature';
 import Teaser from '@/components/Teaser';
 import { getAllPartners } from '@/lib/partners';
-import PartnerContactForm from "@/components/ContactForm"
+import PartnerContactForm from "@/components/PartnerContactForm"
 import Quotation from "@/components/Quotation"
 import PartnerBreadcrumbs from '@/components/PartnerBreadcrumbs';
 import Head from 'next/head';
@@ -56,7 +56,7 @@ export default async function Page({ params }) {
             {quote && (
                 <Quotation props={quote} locale={locale}></Quotation>               
             )}
-            <PartnerContactForm></PartnerContactForm>
+            <PartnerContactForm locale={locale}></PartnerContactForm>
 
         </div>
     )

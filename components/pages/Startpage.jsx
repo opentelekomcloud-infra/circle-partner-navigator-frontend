@@ -1,7 +1,7 @@
 import Index_header from "@/components/Index_Header"
 import PartnerListing from "@/components/PartnerListing"
 import HeroImage from "@/components/HeroImage"
-import PartnerContactForm from "@/components/ContactForm"
+import PartnerContactForm from "@/components/PartnerContactForm"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import TwoColumnsWithPicture from "@/components/TwoColumnsWithPicture"
 import { getAllPartners, getAllTags, getAllWebAssets } from '@/lib/partners';
@@ -55,7 +55,7 @@ export default async function Startpage({ props }) {
             <Breadcrumbs></Breadcrumbs>
             <TwoColumnsWithPicture props={intro}></TwoColumnsWithPicture>
             <PartnerListing cachedPartners={cachedPartnersData} cachedTags={cachedTagsData} locale={props["locale"]}></PartnerListing>
-            <PartnerContactForm></PartnerContactForm>
+            <PartnerContactForm locale={props["locale"]}></PartnerContactForm>
         </div>
     )
 }
