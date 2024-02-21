@@ -9,7 +9,7 @@ function Header({ props }) {
   const router = useRouter()
   const handleClick = (e, lang) => {
     e.preventDefault();
-    const newPath = pathname.replace(/\/[a-z]{2}/, `/${lang}`);
+    const newPath = pathname.replace(/\/[a-z]{2}/, `/${lang}`); // Replaces only the first match
     router.push(newPath);
   }
 
