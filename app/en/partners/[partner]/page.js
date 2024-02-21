@@ -4,7 +4,7 @@ import Teaser from '@/components/Teaser';
 import { getAllPartners } from '@/lib/partners';
 import PartnerContactForm from "@/components/ContactForm"
 import Quotation from "@/components/Quotation"
-import Breadcrumbs from '@/components/Breadcrumbs';
+import PartnerBreadcrumbs from '@/components/PartnerBreadcrumbs';
 import Head from 'next/head';
 
 let cachedPartnersData = null;
@@ -23,7 +23,7 @@ export default async function Page({ params }) {
     const locale = "en"
     const linkLocale = "en"
 
-    const { partner } = params;
+    // const { partner } = params;
     const partners = await getCachedPartnersData()
 
     // From all partners the one with the correct partner data is being collected.
@@ -38,25 +38,13 @@ export default async function Page({ params }) {
         quote = partnerData.attributes.quotes.data[0]
     }
 
-    // Compute the breadcrumb data based on the route
-    const breadcrumbs = [
-        {
-            label: 'Partners',
-            url: `/${linkLocale}/partners`,
-        },
-        {
-            label: partnerData.attributes.overview_headline,
-            url: `/${linkLocale}/partners/${partnerData.attributes.partner_id}`,
-        },
-    ];
-    
     return (
         <div>
             <Head>
                 <title>{metadata.title}</title>
                 <meta name="description" content={metadata.description} />
             </Head>
-            <Breadcrumbs props={breadcrumbs}></Breadcrumbs>
+            <PartnerBreadcrumbs props={partnerData} linkLocale={linkLocale} locale={locale}></PartnerBreadcrumbs>
             <Overview props={partnerData} locale={locale}></Overview>
             <Teaser props={partnerData} locale={locale}></Teaser>
             {partnerData["attributes"]["features"]["data"].map(feature => {
