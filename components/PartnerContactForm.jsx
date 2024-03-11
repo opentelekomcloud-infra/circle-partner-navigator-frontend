@@ -30,7 +30,6 @@ const sendEmailButton = async (event) => {
     const captcha_token = document.getElementById("mcaptcha__token").value
 
     const response = await sendEmail(messageContent, captcha_token, captchaSettings["captcha_sitekey"])
-    console.log(response)
 
     if (response["status"] !== "success") {
         const notificationHTML = `
