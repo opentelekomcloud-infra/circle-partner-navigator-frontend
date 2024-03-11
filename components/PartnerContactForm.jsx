@@ -107,7 +107,7 @@ function PartnerContactForm({locale}) {
                 <h2 className={styles.center}>
                     {data[locale].headline}
                 </h2>
-                <form className={styles.form_wrapper}>
+                <form className={styles.form_wrapper} onSubmit={sendEmailButton}>
                     <scale-radio-button-group
                         label={data[locale].salutation}
                         class={styles.radio_buttons}>
@@ -115,45 +115,50 @@ function PartnerContactForm({locale}) {
                             value="1"
                             label={data[locale].w}
                             checked="true"
-                            name="radioStandard"
+                            name="Salutation"
                             transparent="true"
                             input-id="choiceStandardOne"
                         ></scale-radio-button>
                         <scale-radio-button
                             value="2"
                             label={data[locale].m}
-                            name="radioStandard"
+                            name="Salutation"
                             input-id="choiceStandardTwo"
                         ></scale-radio-button>
                         <scale-radio-button
                             value="3"
                             label={data[locale].x}
-                            name="radioStandard"
+                            name="Salutation"
                             input-id="choiceStandardThree"
                         ></scale-radio-button>
                     </scale-radio-button-group>                
                     <scale-text-field
                         label={data[locale].name}
                         required="true"
+                        name="name"
                         class={styles.item}
                     ></scale-text-field>
                     <scale-text-field
                         label={data[locale].surname}
                         required="true"
+                        name="surname"
                         class={styles.item}
                     ></scale-text-field>
                     <scale-text-field
                         label={data[locale].mail}
                         type="email"
                         required="true"
+                        name="email"
                         class={styles.item}
                     ></scale-text-field>
                     <scale-text-field
                         label={data[locale].company}
+                        name="company"
                         class={styles.item}
                     ></scale-text-field>
                     <scale-text-field
                         label={data[locale].phone}
+                        name="phone"
                         class={styles.item}
                     ></scale-text-field>
                     <ScaleTextarea
@@ -168,6 +173,7 @@ function PartnerContactForm({locale}) {
                     <scale-checkbox
                         class={styles.checkbox}
                         required="true"
+                        name="checkbox"
                         label={data[locale].agreement}
                         >
                     </scale-checkbox>
