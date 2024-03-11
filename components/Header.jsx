@@ -39,7 +39,7 @@ function Header({ props }) {
           <Link href="/">Partner Navigator</Link>
         </scale-telekom-nav-item>
       </scale-telekom-nav-list>
-      {/* <scale-telekom-nav-list
+      <scale-telekom-nav-list
         slot="lang-switcher"
         variant="lang-switcher"
         alignment="right"
@@ -51,7 +51,7 @@ function Header({ props }) {
         <scale-telekom-nav-item active={lang === 'de'}>
           <a onClick={(e) => handleClick(e, 'de')}>DE</a>
         </scale-telekom-nav-item>
-      </scale-telekom-nav-list> */}
+      </scale-telekom-nav-list>
       <scale-telekom-nav-list
         variant="functions"
         slot="functions"
