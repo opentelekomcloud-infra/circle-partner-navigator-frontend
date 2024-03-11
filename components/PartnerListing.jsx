@@ -9,7 +9,8 @@ import { ScaleChip } from '@telekom/scale-components-react';
 
 function PartnerListing({
     cachedPartners,
-    cachedTags
+    cachedTags,
+    locale
 }) {    
     // 'Partner Navigator' where partners are listed with tags
     const [allTags, setAllTags] = useState(cachedTags)
@@ -87,14 +88,14 @@ function PartnerListing({
                     <p>ERROR: allTags data not available.</p>
                 )}
                 {/* Search field */}
-                <scale-text-field label="Search for solutions in the Circle Partner Program"></scale-text-field>
+                {/* <scale-text-field label="Search for solutions in the Circle Partner Program"></scale-text-field> */}
                 {/* Partner Listing */}
                 {/* {console.log('return partner data: ', partners)} */}
                 {partners ? (
                     <CardFlexBox>
                         {partners.map(partner => {
                             return (
-                                <Card key={partner.attributes.partner_id} props={partner}></Card>
+                                <Card key={partner.attributes.partner_id} props={partner} locale={locale}></Card>
                             );
                         })}
                     </CardFlexBox>

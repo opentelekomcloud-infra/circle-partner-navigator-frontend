@@ -5,7 +5,22 @@ import styles from '@/styles/Quotation.module.css';
 import Image from 'next/image';
 
 
-function Quotation({props}) {
+function Quotation({props, locale}) {
+
+    let quotation = undefined
+    let quotation_footer = undefined
+
+    if (locale === "en" && props.attributes.quotation_footer !== undefined) {
+        quotation = props["attributes"]["quotation"]
+        quotation_footer = props["attributes"]["quotation_footer"]
+    } else {
+        props.attributes.localizations.data.map(partner_localization => {
+            if (partner_localization.attributes.locale === locale) {
+                quotation = partner_localization.attributes.quotation
+                quotation_footer = partner_localization.attributes.quotation_footer
+            }
+        })
+    }
     return (
         <div className={styles.container}>
             <div className={styles.container_width}>
@@ -21,12 +36,12 @@ function Quotation({props}) {
                     <div className={styles.quote_icon_text}>
                         <div className={styles.quote_icon}>”</div>                   
                         <div className={styles.quote_text}>
-                            {props.attributes.quotation && (
-                                <b>{props.attributes.quotation}</b>
+                            {quotation && (
+                                <b>{quotation}</b>
                             )}                            
                             <div className={styles.quote_footer}>
-                                {props.attributes.quotation_footer && (
-                                    <div>{props.attributes.quotation_footer}</div>
+                                {quotation_footer && (
+                                    <div>{quotation_footer}</div>
                                 )}
                             </div>
                         </div>

@@ -1,7 +1,27 @@
 import React from "react";
 import Link from "next/link";
+import { usePathname } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
 
 function Header({ props }) {
+  const pathname = usePathname();
+  const router = useRouter()
+  const handleClick = (e, lang) => {
+    e.preventDefault();
+    const newPath = pathname.replace(/\/[a-z]{2}/, `/${lang}`); // Replaces only the first match
+    router.push(newPath);
+  }
+
+  // Get the current language from the URL
+  const currentLang = pathname.split('/')[1];
+  const [lang, setLang] = useState(currentLang);
+
+  // Update the language state when the URL changes
+  useEffect(() => {
+    setLang(pathname.split('/')[1]);
+  }, [pathname]);
+
   return (
     <scale-telekom-header
       slot="header"
@@ -25,14 +45,11 @@ function Header({ props }) {
         alignment="right"
         aria-label="Language switcher"
       >
-        <scale-telekom-nav-item active>
-          <Link href="#">EN</Link>
+        <scale-telekom-nav-item active={lang === 'en'}>
+          <a onClick={(e) => handleClick(e, 'en')}>EN</a>
         </scale-telekom-nav-item>
-        <scale-telekom-nav-item>
-          <Link href="#">DE</Link>
-        </scale-telekom-nav-item>
-        <scale-telekom-nav-item>
-          <Link href="#">NL</Link>
+        <scale-telekom-nav-item active={lang === 'de'}>
+          <a onClick={(e) => handleClick(e, 'de')}>DE</a>
         </scale-telekom-nav-item>
       </scale-telekom-nav-list> */}
       <scale-telekom-nav-list
@@ -44,7 +61,7 @@ function Header({ props }) {
           class="burger-item"
           hide-on-desktop="true">
           <button>
-            <scale-badge>
+            <scale-badge no-dot>
               <scale-icon-action-menu></scale-icon-action-menu>
             </scale-badge>
           </button>
@@ -55,14 +72,11 @@ function Header({ props }) {
                 slot="mobile-before-main-nav"
                 alignment="left"
               >
-                <scale-telekom-nav-item active>
-                  <Link href="#">EN</Link>
+                <scale-telekom-nav-item active={lang === 'en'}>
+                  <a onClick={(e) => handleClick(e, 'en')}>EN</a>
                 </scale-telekom-nav-item>
-                <scale-telekom-nav-item>
-                  <Link href="#">DE</Link>
-                </scale-telekom-nav-item>
-                <scale-telekom-nav-item>
-                  <Link href="#">NL</Link>
+                <scale-telekom-nav-item active={lang === 'de'}>
+                  <a onClick={(e) => handleClick(e, 'de')}>DE</a>
                 </scale-telekom-nav-item>
               </scale-telekom-nav-list>
               <scale-telekom-mobile-menu slot="mobile-main-nav">
