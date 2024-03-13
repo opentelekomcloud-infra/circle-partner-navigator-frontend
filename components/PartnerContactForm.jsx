@@ -112,7 +112,7 @@ function PartnerContactForm({locale}) {
                         label={data[locale].salutation}
                         class={styles.radio_buttons}>
                         <scale-radio-button
-                            value="1"
+                            value={data[locale].w}
                             label={data[locale].w}
                             checked="true"
                             name="Salutation"
@@ -120,13 +120,13 @@ function PartnerContactForm({locale}) {
                             input-id="choiceStandardOne"
                         ></scale-radio-button>
                         <scale-radio-button
-                            value="2"
+                            value={data[locale].m}
                             label={data[locale].m}
                             name="Salutation"
                             input-id="choiceStandardTwo"
                         ></scale-radio-button>
                         <scale-radio-button
-                            value="3"
+                            value={data[locale].x}
                             label={data[locale].x}
                             name="Salutation"
                             input-id="choiceStandardThree"
