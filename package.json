@@ -12,6 +12,7 @@
     "test": "node lib/fetch_media.mjs"
   },
   "dependencies": {
+    "@mcaptcha/react-glue": "^0.1.0-rc3",
     "@telekom/scale-components": "^3.0.0-beta.139",
     "@telekom/scale-components-react": "^3.0.0-beta.139",
     "dotenv": "^16.3.1",

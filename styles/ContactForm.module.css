@@ -1,3 +1,11 @@
+.captcha {
+    width: 100%;
+}
+
+.no_display {
+    display: none;
+}
+
 .container {
     display: flex;
     justify-content: center;
@@ -33,10 +41,6 @@
 
 .message {
     width: 100%;
-}
-
-.submit {
-
 }
 
 .checkbox [part='container'] {
