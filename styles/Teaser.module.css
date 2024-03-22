@@ -44,6 +44,11 @@
     margin-top: 0;
 }
 
+.teaser_image {
+    max-width: 100%;
+    height: auto;
+}
+
 @media(max-width: 1039px) {
     .teaser_item {
         flex-basis: 100%;

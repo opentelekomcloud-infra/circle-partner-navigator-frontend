@@ -41,6 +41,7 @@ function Teaser({props, locale}) {
                                     src={mediaSrc}
                                     width={props.attributes.teaser_media.data.attributes.width}
                                     height={props.attributes.teaser_media.data.attributes.height}
+                                    className={styles.teaser_image}
                                     alt="Teaser Image"></Image>
                             )}                            
                         </div>
