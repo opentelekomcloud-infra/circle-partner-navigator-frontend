@@ -1,0 +1,22 @@
+.SearchIconScaleNavBar {
+    height: 100%;
+}
+  
+.SearchIconScaleNavBar:hover {
+    color: var(--telekom-color-text-and-icon-primary-hovered);
+    cursor: pointer;
+}
+
+.SearchIconScaleNavBar:hover:after {
+    content: '';
+    width: 20px;
+    height: var(--telekom-spacing-composition-space-02);
+    background: var(--telekom-color-text-and-icon-primary-hovered);
+    display: block;
+    position: absolute;
+    align-self: end;
+}
+
+.SearchIconScaleNavBar > svg {
+    align-self: center; 
+}
