@@ -29,8 +29,6 @@ function Header({ props }) {
     setLang(pathname.split('/')[1]);
   }, [pathname]);
 
-
-
   return (
     <div>
       <scale-telekom-header
@@ -108,7 +106,7 @@ function Header({ props }) {
           </scale-telekom-nav-item>
         </scale-telekom-nav-list>
       </scale-telekom-header>
-      <SearchModal></SearchModal>
+      <SearchModal lang={lang}></SearchModal>
     </div>
   );
 }

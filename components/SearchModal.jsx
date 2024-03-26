@@ -1,11 +1,24 @@
 import React from "react";
 
-function SearchModal({props, locale}) {
-  return (
-    <scale-modal heading="Today is your lucky day" size="large" id="SearchModal">
-        <p>Hello. Welcome. What a pleasure it is to have you.</p>
-    </scale-modal>
-  );
+function SearchModal({props, lang}) {
+
+    let heading = ""
+    let description = ""
+
+    if (lang === "de") {
+        heading = "Suche"
+        description = "Durchsuchen Sie hier unsere Partnerangebote."
+    }
+    else {
+        heading = "Search"
+        description = "Search here through our partner offerings."
+    }
+
+    return (
+        <scale-modal heading={heading} size="large" id="SearchModal">
+            <p>{description}</p>
+        </scale-modal>
+    );
 }
 
 export default SearchModal;
