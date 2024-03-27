@@ -1,43 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { ScaleTextField } from '@telekom/scale-components-react';
+import { postRequest } from '@/lib/postrequest'
+
 
 var timerID = 0;
 
 // Build the request for searching
-async function searchRequest(val, request_size, highlight_size) {
+async function searchRequest(queryText) {
 
     // Default request without filtering
     const request_query = {
-        "from" : 0, "size" : request_size,
-        "_source": ["highlight", "current_page_name", "title", "base_url", "doc_url", "doc_type", "doc_title", "service_title"],
+        "from" : 0,
+        "size" : 10,
+        "_source": ["highlight", "_id", "attributes.overview_headline"],
         "query": {
             "multi_match": {
-              "query": val,
-              "type": "bool_prefix",
-              "operator": "and",
-              "fields": [ "body", "title^2" ]
+              "query": queryText
             }
         },
         "highlight": {
-            "number_of_fragments": 1,
-            "fragment_size":highlight_size,
-            "pre_tags": [
-                "<span style='color: var(--telekom-color-text-and-icon-primary-standard)'>"
-            ],
-            "post_tags": [
-                "</span>"
-            ],
-            "fields":{
-                "body": {},
-                "title": {}
-            },
-            "require_field_match" : false
+          "number_of_fragments": 1,
+          "fragment_size": 100,
+          "fields": {
+            "*": {}
+          },
+          "require_field_match" : false,
+          "pre_tags": [
+              "<span style='color: var(--telekom-color-text-and-icon-primary-standard)'>"
+          ],
+          "post_tags": [
+              "</span>"
+          ]
         }
-    };
+      };
 
 
-    let url = `${search_url}${search_environment}-*/_search`
+    let url = 'https://opensearch.eco.tsi-dev.otc-service.com/cpn-*/_search'
 
     let response = await postRequest(url, request_query)
 
@@ -46,26 +45,25 @@ async function searchRequest(val, request_size, highlight_size) {
 
 
 // TIMER WHICH STARTS THE SEARCH RESULT LIST AFTER TIMEOUT HAS BEEN REACHED
-function timer(el) {
+function timer(el, setSearchResults) {
     timerID = setTimeout(async () => {
         if (el.value) {
-            let response = await searchRequest(document.getElementById('searchbox').value, 100, 300);
-            createMainResult(response)
+            let response = await searchRequest(el.value);
+            setSearchResults(response); // Update search results
         } else {
-            deleteResults();
+            setSearchResults(null); // Clear search results
         };
     }, 250);
 };
 
-// FUNCTION WHICH STARTS THE TIMER EVENT AFTER THE KEY UP EVENT
-const getSearchResults = async () => {
+const getSearchResults = (el, setSearchResults) => {
     clearTimeout(timerID);
-    const el = document.getElementById('searchbox');
-    timer(el);
+    timer(el, setSearchResults);
 };
 
 
 function SearchModal({props, lang}) {
+    const [searchResults, setSearchResults] = useState(null);
 
     let heading = ""
     let description = ""
@@ -81,8 +79,11 @@ function SearchModal({props, lang}) {
 
     return (
         <scale-modal heading={heading} size="large" id="SearchModal">
-            <ScaleTextField id="searchbox" label={description} onScaleChange={getSearchResults}>
+            {/* scaleTextField is the event or the element which is provided to the timer function */}
+            {/* setSearchResults is the method which updates our result list */}
+            <ScaleTextField id="searchbox" label={description} onScaleChange={(scaleTextField) => getSearchResults(scaleTextField.target, setSearchResults)}>
             </ScaleTextField>
+            <SearchResults results={searchResults}></SearchResults>
         </scale-modal>
     );
 }
