@@ -30,6 +30,9 @@
     .image_item {
         display: flex;
         justify-content: center;
+        align-items: center;
+        /* Give the image on smaller displays a bit space below */
+        margin-bottom: 2rem;
     }
     .text_item {
         padding-left: 0rem;
@@ -39,12 +42,19 @@
         max-height: 300px;
         max-width: 378px;
     }
+    /* Reverse flex Order to display the CPN logo on top  */
+    .container_overview {
+        flex-direction: column-reverse;
+        /* Reduce on smaller displays a bit space below */
+        margin-bottom: 2rem;
+    }
 }
 
 @media(min-width: 1040px) {
     .image_item {
         display: flex;
         justify-content: flex-end;
+        align-items: center;
     }
 }
 
