@@ -4,13 +4,14 @@ import HeroImage from "@/components/HeroImage"
 import PartnerContactForm from "@/components/PartnerContactForm"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import TwoColumnsWithPicture from "@/components/TwoColumnsWithPicture"
-import { getAllPartners, getAllTags, getAllWebAssets } from '@/lib/partners';
+import { getAllPartners, getAllTagCategories, getAllTags, getAllWebAssets } from '@/lib/partners';
 
 
 export default async function Startpage({ props }) {
     // representation of first page
     const cachedPartnersData = await getAllPartners();
     const cachedTagsData = await getAllTags();
+    const cachedTagCategoriesData = await getAllTagCategories();
     const webAssets = await getAllWebAssets();
 
     const mainHero = webAssets.find(asset => asset.attributes.name === 'main-hero-image')
@@ -60,7 +61,12 @@ export default async function Startpage({ props }) {
             <HeroImage props={heroMedia} locale={props["locale"]}></HeroImage>
             <Breadcrumbs></Breadcrumbs>
             <TwoColumnsWithPicture props={intro}></TwoColumnsWithPicture>
-            <PartnerListing cachedPartners={cachedPartnersData} cachedTags={cachedTagsData} locale={props["locale"]}></PartnerListing>
+            <PartnerListing
+                cachedPartners={cachedPartnersData}
+                cachedTags={cachedTagsData}
+                cachedTagCategories={cachedTagCategoriesData}
+                locale={props["locale"]}>
+            </PartnerListing>
             <PartnerContactForm locale={props["locale"]}></PartnerContactForm>
         </div>
     )

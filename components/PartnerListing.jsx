@@ -10,6 +10,7 @@ import { ScaleChip } from '@telekom/scale-components-react';
 function PartnerListing({
     cachedPartners,
     cachedTags,
+    cachedTagCategories,
     locale
 }) {    
     // 'Partner Navigator' where partners are listed with tags
@@ -69,6 +70,46 @@ function PartnerListing({
                 {/* {console.log('return partner data: ', allTags)} */}
                 {allTags ? (
                     <scale-accordion expanded="true">
+                        {cachedTagCategories ? (
+                            cachedTagCategories.map(cat => {
+                                return (
+                                    <scale-collapsible
+                                        key={cat.id}>
+                                        {locale === "en" ? (
+                                            <span slot="heading">cat.attributes.name</span>
+                                        ) : (
+                                            cat.attributes.localizations.data.map(cat_locale => {
+                                                if (cat_locale.attributes.locale === locale) {
+                                                    <span slot="heading">cat_locale.attributes.name</span>
+                                                }
+                                            })
+                                        )}
+                                        <div className={styles.checkboxwrapper}>
+                                            {allTags.map(tag => {
+                                                // Check if tag belongs to tag category by verifying IDs
+                                                if ( tag.attributes.tag_category.data.id === cat.id) {
+                                                    return (
+                                                        <ScaleChip
+                                                            key={tag.attributes.name}
+                                                            onScaleChange={changeChip}>{tag.attributes.name}
+                                                        </ScaleChip>
+                                                    )                                                
+                                                }
+                                            })}
+                                        </div>
+                                    </scale-collapsible>
+                                )
+                            } )
+                        ) : (
+                            <p>ERROR: cachedTagCategories data not available.</p>
+                        )}
+                    </scale-accordion>
+                ) : (
+                    <p>ERROR: allTags data not available.</p>
+                )}
+
+                {/* {allTags ? (
+                    <scale-accordion expanded="true">
                         <scale-collapsible>
                             <span slot="heading">Tag Filter</span>
                             <div className={styles.checkboxwrapper}>
@@ -77,7 +118,7 @@ function PartnerListing({
                                         <ScaleChip
                                             key={tag.attributes.name}
                                             onScaleChange={changeChip}>{tag.attributes.name}
-                                            {/* on-scale-change={changeChip}>{tag["id"]} */}
+
                                         </ScaleChip>
                                     )
                                 })}
@@ -86,7 +127,11 @@ function PartnerListing({
                     </scale-accordion>
                 ) : (
                     <p>ERROR: allTags data not available.</p>
-                )}
+                )} */}
+
+
+
+
                 {/* Search field */}
                 {/* <scale-text-field label="Search for solutions in the Circle Partner Program"></scale-text-field> */}
                 {/* Partner Listing */}
