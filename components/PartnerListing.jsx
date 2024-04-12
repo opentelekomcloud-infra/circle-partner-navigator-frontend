@@ -86,14 +86,19 @@ function PartnerListing({
                                         )}
                                         <div className={styles.checkboxwrapper}>
                                             {allTags.map(tag => {
-                                                // Check if tag belongs to tag category by verifying IDs
-                                                if ( tag.attributes.tag_category.data.id === cat.id) {
-                                                    return (
-                                                        <ScaleChip
-                                                            key={tag.attributes.name}
-                                                            onScaleChange={changeChip}>{tag.attributes.name}
-                                                        </ScaleChip>
-                                                    )                                                
+                                                if (tag.attributes.tag_category.data !== null) {
+                                                    
+                                                    // Check if tag belongs to tag category by verifying IDs
+                                                    if ( tag.attributes.tag_category.data.id === cat.id) {
+                                                        return (
+                                                            <ScaleChip
+                                                                key={tag.attributes.name}
+                                                                onScaleChange={changeChip}>{tag.attributes.name}
+                                                            </ScaleChip>
+                                                        )                                                
+                                                    }
+                                                } else {
+                                                    console.error(`Tag ${tag.attributes.name} has no tag_category assigned!`);
                                                 }
                                             })}
                                         </div>
