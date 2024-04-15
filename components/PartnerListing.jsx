@@ -75,15 +75,15 @@ function PartnerListing({
                                 return (
                                     <scale-collapsible
                                         key={cat.id}>
-                                        {locale === "en" ? (
-                                            <span slot="heading">cat.attributes.name</span>
-                                        ) : (
-                                            cat.attributes.localizations.data.map(cat_locale => {
-                                                if (cat_locale.attributes.locale === locale) {
-                                                    <span slot="heading">cat_locale.attributes.name</span>
-                                                }
-                                            })
-                                        )}
+                                        {/* {locale === "en" ? ( */}
+                                            <span slot="heading">{cat.attributes.name}</span>
+                                        {/* // ) : ( */}
+                                        {/* //     cat.attributes.localizations.data.map(cat_locale => { */}
+                                        {/* //         if (cat_locale.attributes.locale === locale) { */}
+                                        {/* //             <span slot="heading">{cat_locale.attributes.name}</span> */}
+                                        {/* //         } */}
+                                        {/* //     }) */}
+                                        {/* // )} */}
                                         <div className={styles.checkboxwrapper}>
                                             {allTags.map(tag => {
                                                 if (tag.attributes.tag_category.data !== null) {
