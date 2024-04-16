@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from 'react';
 
 import { ScaleTextField } from '@telekom/scale-components-react';
 import { postRequest } from '@/lib/postrequest'
+import SearchResults from '@/components/SearchResults';
 
 
 var timerID = 0;
 
 // Build the request for searching
-async function searchRequest(queryText) {
+async function searchRequest(queryText, locale) {
 
     // Default request without filtering
     const request_query = {
@@ -36,39 +37,39 @@ async function searchRequest(queryText) {
       };
 
 
-    let url = 'https://opensearch.eco.tsi-dev.otc-service.com/cpn-*/_search'
+    let url = `https://opensearch.eco.tsi-dev.otc-service.com/cpn-*-${locale}/_search`
 
     let response = await postRequest(url, request_query)
 
-    return response
+    return response.hits.hits
 };
 
 
 // TIMER WHICH STARTS THE SEARCH RESULT LIST AFTER TIMEOUT HAS BEEN REACHED
-function timer(el, setSearchResults) {
+function timer(el, setSearchResults, locale) {
     timerID = setTimeout(async () => {
         if (el.value) {
-            let response = await searchRequest(el.value);
+            let response = await searchRequest(el.value, locale);
             setSearchResults(response); // Update search results
         } else {
-            setSearchResults(null); // Clear search results
+            setSearchResults([]); // Clear search results
         };
-    }, 250);
+    }, 1000);
 };
 
-const getSearchResults = (el, setSearchResults) => {
+const getSearchResults = (el, setSearchResults, locale) => {
     clearTimeout(timerID);
-    timer(el, setSearchResults);
+    timer(el, setSearchResults, locale);
 };
 
 
-function SearchModal({props, lang}) {
+function SearchModal({locale}) {
     const [searchResults, setSearchResults] = useState(null);
 
     let heading = ""
     let description = ""
 
-    if (lang === "de") {
+    if (locale === "de") {
         heading = "Suche"
         description = "Durchsuchen Sie hier unsere Partnerangebote."
     }
@@ -77,12 +78,17 @@ function SearchModal({props, lang}) {
         description = "Search here through our partner offerings."
     }
 
+    // useEffect(() => {
+    //     console.log(searchResults)
+    // }, [searchResults]);
+
     return (
         <scale-modal heading={heading} size="large" id="SearchModal">
             {/* scaleTextField is the event or the element which is provided to the timer function */}
             {/* setSearchResults is the method which updates our result list */}
-            <ScaleTextField id="searchbox" label={description} onScaleChange={(scaleTextField) => getSearchResults(scaleTextField.target, setSearchResults)}>
+            <ScaleTextField id="searchbox" label={description} onScaleChange={(scaleTextField) => getSearchResults(scaleTextField.target, setSearchResults, locale)}>
             </ScaleTextField>
+
             <SearchResults results={searchResults}></SearchResults>
         </scale-modal>
     );

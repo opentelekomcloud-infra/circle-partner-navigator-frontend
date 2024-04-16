@@ -106,7 +106,7 @@ function Header({ props }) {
           </scale-telekom-nav-item>
         </scale-telekom-nav-list>
       </scale-telekom-header>
-      <SearchModal lang={lang}></SearchModal>
+      <SearchModal locale={lang}></SearchModal>
     </div>
   );
 }

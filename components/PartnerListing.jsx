@@ -77,7 +77,6 @@ function PartnerListing({
                                         <ScaleChip
                                             key={tag.attributes.name}
                                             onScaleChange={changeChip}>{tag.attributes.name}
-                                            {/* on-scale-change={changeChip}>{tag["id"]} */}
                                         </ScaleChip>
                                     )
                                 })}
@@ -87,8 +86,6 @@ function PartnerListing({
                 ) : (
                     <p>ERROR: allTags data not available.</p>
                 )}
-                {/* Search field */}
-                {/* <scale-text-field label="Search for solutions in the Circle Partner Program"></scale-text-field> */}
                 {/* Partner Listing */}
                 {/* {console.log('return partner data: ', partners)} */}
                 {partners ? (
