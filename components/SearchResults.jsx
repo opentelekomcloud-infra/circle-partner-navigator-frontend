@@ -2,18 +2,20 @@
 import React from "react";
 import Link from "next/link";
 
+import styles from '@/styles/SearchResults.module.css';
+
 function SearchResults({results, locale}) {
     return (
-        <div>
+        <div className={styles.results_container}>
             {/* {console.log(results)} */}
             {results ? results.map((result, index) => (
-                <Link key={index} href={`/${locale}/partners/${result["_id"]}`}>
-                    <div>
-                        <div style={{fontSize: "1.5rem", fontWeight: 'bold'}}>{result["_source"]["attributes"]["overview_headline"]}</div>
-                        <div style={{color: 'blue'}}>{`/${locale}/partners/${result["_id"]}`}</div>
-                        <div dangerouslySetInnerHTML={{ __html: result["highlight"][Object.keys(result["highlight"])[0]] }}></div>
-                    </div>  
-                </Link>        
+                <div  key={index} className={styles.result}>
+                    <Link href={`/${locale}/partners/${result["_id"]}`} className={styles.atag}>
+                        <div className={styles.header}>{result["_source"]["attributes"]["overview_headline"]}</div>
+                        <div className={styles.link}>{`/${locale}/partners/${result["_id"]}`}</div>
+                        <div className={styles.highlight} dangerouslySetInnerHTML={{ __html: result["highlight"][Object.keys(result["highlight"])[0]] }}></div>
+                    </Link>
+                </div>
             )) : null}
         </div>
     )

@@ -1,0 +1,37 @@
+.results_container {
+    margin-top: 1.5rem;
+}
+
+.result:hover {
+    background-color: var(--telekom-color-background-surface-subtle);
+}
+
+.atag {
+    text-decoration: none;
+}
+
+.header {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #383838;
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.link {
+    font-size: 0.9rem;
+    color: var(--telekom-color-text-and-icon-link-standard);
+}
+
+.highlight {
+    color: #383838;
+}
+
+@media (prefers-color-scheme: dark) {
+    .header {
+        color: var(--telekom-color-text-and-icon-standard);
+    }
+    .highlight {
+        color: var(--telekom-color-text-and-icon-standard);
+    }
+}
