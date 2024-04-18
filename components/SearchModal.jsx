@@ -54,7 +54,7 @@ function timer(el, setSearchResults, locale) {
         } else {
             setSearchResults([]); // Clear search results
         };
-    }, 1000);
+    }, 500);
 };
 
 const getSearchResults = (el, setSearchResults, locale) => {
@@ -89,7 +89,7 @@ function SearchModal({locale}) {
             <ScaleTextField id="searchbox" label={description} onScaleChange={(scaleTextField) => getSearchResults(scaleTextField.target, setSearchResults, locale)}>
             </ScaleTextField>
 
-            <SearchResults results={searchResults}></SearchResults>
+            <SearchResults results={searchResults} locale={locale}></SearchResults>
         </scale-modal>
     );
 }
