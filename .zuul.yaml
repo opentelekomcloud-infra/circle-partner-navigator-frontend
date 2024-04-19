@@ -10,6 +10,9 @@
         - context: .
           registry: quay.io
           repository: opentelekomcloud/circle-partner-navigator-frontend
+          build_args:
+            - BASE_URL=https://strapi.partners.otc-service.com/
+            - AUTH_TOKEN=AUTH_TOKEN
           tags:
             &imagetag "{{ zuul.tag is defined | ternary([zuul.get('tag', '').split('.')[0], '.'.join(zuul.get('tag', '').split('.')[:2]), zuul.get('tag', '')], ['latest']) }}"
 
@@ -32,3 +35,4 @@
     release:
       jobs:
         - circle-partner-navigator-frontend-upload-image
+ 
