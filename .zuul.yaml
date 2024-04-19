@@ -1,9 +1,34 @@
+---
+
+- job:
+    name: circle-partner-navigator-frontend-build-image
+    parent: otc-build-container-image
+    description: Build circle-partner-navigator-frontend container image
+    provides: circle-partner-navigator-frontend-image
+    vars: &cpn_image_vars
+      container_images:
+        - context: .
+          registry: quay.io
+          repository: opentelekomcloud/circle-partner-navigator-frontend
+          tags:
+            &imagetag "{{ zuul.tag is defined | ternary([zuul.get('tag', '').split('.')[0], '.'.join(zuul.get('tag', '').split('.')[:2]), zuul.get('tag', '')], ['latest']) }}"
+
+- job:
+    name: circle-partner-navigator-frontend-upload-image
+    parent: otcinfra-upload-container-images
+    vars: *cpn_image_vars
+
 - project:
     merge-mode: squash-merge
     default-branch: main
+    vars:
+      node_version: 18
     check:
       jobs:
-        - noop
+        - circle-partner-navigator-frontend-build-image
     gate:
       jobs:
-        - noop
+        - circle-partner-navigator-frontend-upload-image
+    release:
+      jobs:
+        - circle-partner-navigator-frontend-upload-image
