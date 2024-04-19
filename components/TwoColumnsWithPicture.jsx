@@ -18,12 +18,26 @@ function TwoColumnsWithPicture({props}) {
                         </div>
                     </div>
                     <div className={`${styles.item} ${styles.image_item}`} >
-                        <Image
-                            src={`/api/${props["image"]}`}
-                            alt={props["image"]}
-                            style={{maxHeight: `${props["img_height"]}`}}
-                            className={styles.image}></Image>
-                            
+                        { 
+                            props["image_dark"] ? (
+                                <picture>
+                                    <source srcSet={`/api/${props["image_dark"]}`} media="(prefers-color-scheme: dark)" />
+                                    <Image
+                                        src={`/api/${props["image"]}`}
+                                        alt={props["image"]}
+                                        style={{maxHeight: `${props["img_height"]}`}}
+                                        className={styles.image}>
+                                    </Image>
+                                </picture>
+                            ) : (
+                                <Image
+                                    src={`/api/${props["image"]}`}
+                                    alt={props["image"]}
+                                    style={{maxHeight: `${props["img_height"]}`}}
+                                    className={styles.image}>
+                                </Image>
+                            )
+                        }                            
                     </div>
                 </div>
             </div>

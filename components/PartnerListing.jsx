@@ -10,6 +10,7 @@ import { ScaleChip } from '@telekom/scale-components-react';
 function PartnerListing({
     cachedPartners,
     cachedTags,
+    cachedTagCategories,
     locale
 }) {    
     // 'Partner Navigator' where partners are listed with tags
@@ -69,19 +70,44 @@ function PartnerListing({
                 {/* {console.log('return partner data: ', allTags)} */}
                 {allTags ? (
                     <scale-accordion expanded="true">
-                        <scale-collapsible>
-                            <span slot="heading">Tag Filter</span>
-                            <div className={styles.checkboxwrapper}>
-                                {allTags.map(tag => {
-                                    return (
-                                        <ScaleChip
-                                            key={tag.attributes.name}
-                                            onScaleChange={changeChip}>{tag.attributes.name}
-                                        </ScaleChip>
-                                    )
-                                })}
-                            </div>
-                        </scale-collapsible>
+                        {cachedTagCategories ? (
+                            cachedTagCategories.map(cat => {
+                                return (
+                                    <scale-collapsible
+                                        key={cat.id}>
+                                        {/* {locale === "en" ? ( */}
+                                            <span slot="heading">{cat.attributes.name}</span>
+                                        {/* // ) : ( */}
+                                        {/* //     cat.attributes.localizations.data.map(cat_locale => { */}
+                                        {/* //         if (cat_locale.attributes.locale === locale) { */}
+                                        {/* //             <span slot="heading">{cat_locale.attributes.name}</span> */}
+                                        {/* //         } */}
+                                        {/* //     }) */}
+                                        {/* // )} */}
+                                        <div className={styles.checkboxwrapper}>
+                                            {allTags.map(tag => {
+                                                if (tag.attributes.tag_category.data !== null) {
+                                                    
+                                                    // Check if tag belongs to tag category by verifying IDs
+                                                    if ( tag.attributes.tag_category.data.id === cat.id) {
+                                                        return (
+                                                            <ScaleChip
+                                                                key={tag.attributes.name}
+                                                                onScaleChange={changeChip}>{tag.attributes.name}
+                                                            </ScaleChip>
+                                                        )                                                
+                                                    }
+                                                } else {
+                                                    console.error(`Tag ${tag.attributes.name} has no tag_category assigned!`);
+                                                }
+                                            })}
+                                        </div>
+                                    </scale-collapsible>
+                                )
+                            } )
+                        ) : (
+                            <p>ERROR: cachedTagCategories data not available.</p>
+                        )}
                     </scale-accordion>
                 ) : (
                     <p>ERROR: allTags data not available.</p>
