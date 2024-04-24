@@ -30,7 +30,7 @@
           repository: opentelekomcloud/circle-partner-navigator-frontend
           build_args:
             - BASE_URL=https://strapi.partners.otc-service.com/
-            - AUTH_TOKEN="{{ cpn_front_auth_secret.token }}"
+            - AUTH_TOKEN=cpn_front_auth_secret.token
           tags:
             &imagetag "{{ zuul.tag is defined | ternary([zuul.get('tag', '').split('.')[0], '.'.join(zuul.get('tag', '').split('.')[:2]), zuul.get('tag', '')], ['latest']) }}"
 
