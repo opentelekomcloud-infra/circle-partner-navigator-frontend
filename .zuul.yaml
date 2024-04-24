@@ -21,7 +21,7 @@
     provides: circle-partner-navigator-frontend-image
     secrets: 
       - name: cpn_front_auth_secret
-        secret: cpn_front_auth_tokenq
+        secret: cpn_front_auth_token
     vars: &cpn_image_vars
       container_images:
         - context: .
