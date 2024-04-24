@@ -20,8 +20,8 @@
     description: Build circle-partner-navigator-frontend container image
     provides: circle-partner-navigator-frontend-image
     secrets: 
-      - name: cpn-front-auth-secret
-        secret: cpn_front_auth_token
+      - name: cpn_front_auth_token
+        secret: cpn_front_auth_secret
     vars: &cpn_image_vars
       container_images:
         - context: .
