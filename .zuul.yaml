@@ -20,7 +20,7 @@
     description: Build circle-partner-navigator-frontend container image
     provides: circle-partner-navigator-frontend-image
     secrets: 
-      - name: cpn_front_auth_secret
+      - name: cpn-front-auth-secret
         secret: cpn_front_auth_token
     vars: &cpn_image_vars
       container_images:
@@ -29,7 +29,7 @@
           repository: opentelekomcloud/circle-partner-navigator-frontend
           build_args:
             - BASE_URL=https://strapi.partners.otc-service.com/
-            - AUTH_TOKEN="{{ cpn_front_auth_secret.token }}"
+            - AUTH_TOKEN="{{ cpn-front-auth-secret.token }}"
           tags:
             &imagetag "{{ zuul.tag is defined | ternary([zuul.get('tag', '').split('.')[0], '.'.join(zuul.get('tag', '').split('.')[:2]), zuul.get('tag', '')], ['latest']) }}"
 
