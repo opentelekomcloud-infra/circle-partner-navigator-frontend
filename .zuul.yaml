@@ -1,10 +1,27 @@
 ---
+- secret:
+    name: cpn_front_auth_token
+    data:
+      token: !encrypted/pkcs1-oaep
+        - UGwBDX545uaQP3FvSMdEEaQu32Uqtbgi/GZd2Hxe5Zb0Qijknhe59L92h/a8h5gDBeCFS
+          UZE3Vh0XLy4Cdp05n68cgNnyA8ZsEeBTm6mrmICNmT+WcNhteslPUX7pB4FvQ3eVaccU9
+          ALY0dCyPkggmWcIiUez7EALvq8h9yEZEY76wvekLxTF9oy5M2BNABlgsFYT8eCXjVOvQ5
+          +mkJRfd/Xr6sq+D6pp91J9i0oFBRrgrHXM688hmhOo/bbKwm3BIrkFb/S6/WZa8vD2g0x
+          JB32C23//FZdh3y6wF/7r2QbXxggQp7+LZbewqNJByan6S//cplLdfgY6eQy/kwupZ1oS
+          NQKKbxftcJplPyAJTkR0DbmMs5EOGq4SjNMzYyyN2+KxJJ2EG9RAK/0J2HzhCxuqn6cZ4
+          TpYDp02ICw+egZKPcifoMCp9fwtPYqOPzYcuxEl1ee0u6nk3RR3mxKB4GHgqWysgyZEqI
+          +HRAb0zeSvfKFce90Us/lE1xLSjsnDg8lKWQTFsxsCqEYYuLmVGYJXwr6TELfBE2M04wS
+          WInCeMeS+jjSuifi6jb7czX4IT12/Jzx6c/JJ3+16OnF4e/vdjYXslnq2/0bISCbNZvgh
+          EFL7asTYxhqpnoR+6OWGahH0eYfB/4dlXb5vsA+dpoRdPoPZ2kMSHsaWCAFKAs=
 
 - job:
     name: circle-partner-navigator-frontend-build-image
     parent: otc-build-container-image
     description: Build circle-partner-navigator-frontend container image
     provides: circle-partner-navigator-frontend-image
+    secrets: 
+      - name: cpn_front_auth_secret
+        secret: cpn_front_auth_token
     vars: &cpn_image_vars
       container_images:
         - context: .
@@ -12,7 +29,7 @@
           repository: opentelekomcloud/circle-partner-navigator-frontend
           build_args:
             - BASE_URL=https://strapi.partners.otc-service.com/
-            - AUTH_TOKEN=AUTH_TOKEN
+            - AUTH_TOKEN="{{ cpn_front_auth_secret.token }}"
           tags:
             &imagetag "{{ zuul.tag is defined | ternary([zuul.get('tag', '').split('.')[0], '.'.join(zuul.get('tag', '').split('.')[:2]), zuul.get('tag', '')], ['latest']) }}"
 
@@ -35,4 +52,3 @@
     release:
       jobs:
         - circle-partner-navigator-frontend-upload-image
- 
