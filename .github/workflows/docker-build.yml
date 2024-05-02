@@ -14,7 +14,9 @@ env:
   PROJECT: circle-partner-navigator-frontend
 
 jobs:
+
   build:
+    if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
 
     steps:
@@ -55,6 +57,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
+    
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
