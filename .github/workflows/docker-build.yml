@@ -1,7 +1,10 @@
 name: Docker Image Build
 
 on:
-  - pull_request
+  pull_request:
+    types:
+      - opened
+      - closed
 
 env:
   REGISTRY: quay.io
@@ -45,9 +48,8 @@ jobs:
           BASE_URL=${{ secrets.BASE_URL }}
           AUTH_TOKEN=${{ secrets.AUTH_TOKEN }}
 
-  if_merged:
+  push_if_merged:
     if: github.event.pull_request.merged == true
-
     runs-on: ubuntu-latest
 
     steps:
