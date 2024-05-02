@@ -27,7 +27,6 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: |
-          opentelekomcloud/circle-partner-navigator-frontend
           "${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}"
         tags: |
           type=schedule
@@ -64,7 +63,6 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            opentelekomcloud/circle-partner-navigator-frontend
             "${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}"
           tags: |
             type=schedule
