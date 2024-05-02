@@ -33,7 +33,7 @@ jobs:
       with:
         images: |
           opentelekomcloud/circle-partner-navigator-frontend
-          "${{ secrets.REGISTRY_USER }}/$env.ORG/$env.PROJECT"
+          "${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}"
         tags: |
           type=schedule
           type=ref,event=branch
@@ -68,7 +68,7 @@ jobs:
         with:
           images: |
             opentelekomcloud/circle-partner-navigator-frontend
-            "$${{ secrets.REGISTRY }}/$env.ORG/$env.PROJECT"
+            "${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}"
           tags: |
             type=schedule
             type=ref,event=branch
