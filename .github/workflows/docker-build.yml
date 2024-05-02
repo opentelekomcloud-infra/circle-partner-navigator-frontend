@@ -7,8 +7,7 @@ on:
       - closed
       - edited
       - reopened
-  push
-
+      - synchronize
 
 jobs:
   build:
