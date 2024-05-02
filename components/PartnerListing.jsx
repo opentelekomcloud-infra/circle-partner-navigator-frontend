@@ -112,33 +112,6 @@ function PartnerListing({
                 ) : (
                     <p>ERROR: allTags data not available.</p>
                 )}
-
-                {/* {allTags ? (
-                    <scale-accordion expanded="true">
-                        <scale-collapsible>
-                            <span slot="heading">Tag Filter</span>
-                            <div className={styles.checkboxwrapper}>
-                                {allTags.map(tag => {
-                                    return (
-                                        <ScaleChip
-                                            key={tag.attributes.name}
-                                            onScaleChange={changeChip}>{tag.attributes.name}
-
-                                        </ScaleChip>
-                                    )
-                                })}
-                            </div>
-                        </scale-collapsible>
-                    </scale-accordion>
-                ) : (
-                    <p>ERROR: allTags data not available.</p>
-                )} */}
-
-
-
-
-                {/* Search field */}
-                {/* <scale-text-field label="Search for solutions in the Circle Partner Program"></scale-text-field> */}
                 {/* Partner Listing */}
                 {/* {console.log('return partner data: ', partners)} */}
                 {partners ? (
