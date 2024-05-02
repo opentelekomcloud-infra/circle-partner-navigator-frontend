@@ -29,7 +29,7 @@ jobs:
       with:
         images: |
           opentelekomcloud/circle-partner-navigator-frontend
-          "quay.io/$ORG/$PROJECT"
+          "quay.io/$env.ORG/$env.PROJECT"
         tags: |
           type=schedule
           type=ref,event=branch
