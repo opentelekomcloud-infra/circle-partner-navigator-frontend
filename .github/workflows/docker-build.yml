@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Login to GitHub Container Registry
+    - name: Login to Container Registry
       uses: docker/login-action@v3
       with:
         registry: quay.io
@@ -28,7 +28,7 @@ jobs:
       with:
         images: |
           opentelekomcloud/circle-partner-navigator-frontend
-          "quay.io/${{env.ORG}}/${{env.PROJECT}}"
+          "quay.io/$ORG/$PROJECT"
         tags: |
           type=schedule
           type=ref,event=branch
@@ -63,7 +63,7 @@ jobs:
         with:
           images: |
             opentelekomcloud/circle-partner-navigator-frontend
-            "${{env.REGISTRY}}/${{env.ORG}}/${{env.PROJECT}}"
+            "$REGISTRY/$env.ORG/$env.PROJECT"
           tags: |
             type=schedule
             type=ref,event=branch
@@ -76,10 +76,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Login to GitHub Container Registry
+      - name: Login to Container Registry
         uses: docker/login-action@v3
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: quay.io
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
