@@ -9,6 +9,10 @@ on:
       - reopened
       - synchronize
 
+env:
+  ORG: opentelekomcloud
+  PROJECT: circle-partner-navigator-frontend
+
 jobs:
   build:
     runs-on: ubuntu-latest
