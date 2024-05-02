@@ -1,0 +1,89 @@
+name: Docker Image Build
+
+on:
+  - pull_request
+
+env:
+  REGISTRY: quay.io
+  ORG: opentelekomcloud
+  PROJECT: circle-partner-navigator-frontend
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: |
+          opentelekomcloud/circle-partner-navigator-frontend
+          "${{env.REGISTRY}}/${{env.ORG}}/${{env.PROJECT}}"
+        tags: |
+          type=schedule
+          type=ref,event=branch
+          type=ref,event=pr
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=semver,pattern={{major}}
+          type=sha
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        push: false
+        build-args: |
+          BASE_URL=${{ secrets.BASE_URL }}
+          AUTH_TOKEN=${{ secrets.AUTH_TOKEN }}
+
+  if_merged:
+    if: github.event.pull_request.merged == true
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            opentelekomcloud/circle-partner-navigator-frontend
+            "${{env.REGISTRY}}/${{env.ORG}}/${{env.PROJECT}}"
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: $env.REGISTRY
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          push: true
+          build-args: |
+            BASE_URL=${{ secrets.BASE_URL }}
+            AUTH_TOKEN=${{ secrets.AUTH_TOKEN }}

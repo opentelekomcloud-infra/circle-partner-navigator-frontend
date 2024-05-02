@@ -1,5 +1,5 @@
 # Use the ubi8 Node.js 20 image as the base image
-FROM registry.access.redhat.com/ubi8/nodejs-20:1-22 as build
+FROM node:20-alpine as build
 
 ARG NODE_ENV
 ARG AUTH_TOKEN
@@ -16,12 +16,12 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --omit=dev
+RUN yarn install --omit=dev
 
 # Copy the rest of the application code to the working directory
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
 ## now add the build to nginx
 FROM nginx:alpine
