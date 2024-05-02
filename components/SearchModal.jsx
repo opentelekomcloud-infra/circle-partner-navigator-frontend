@@ -46,25 +46,28 @@ async function searchRequest(queryText, locale) {
 
 
 // TIMER WHICH STARTS THE SEARCH RESULT LIST AFTER TIMEOUT HAS BEEN REACHED
-function timer(el, setSearchResults, locale) {
+function timer(el, setSearchResults, locale, setEmpty) {
     timerID = setTimeout(async () => {
         if (el.value) {
             let response = await searchRequest(el.value, locale);
             setSearchResults(response); // Update search results
+            setEmpty(false);
         } else {
             setSearchResults([]); // Clear search results
+            setEmpty(true);
         };
     }, 500);
 };
 
-const getSearchResults = (el, setSearchResults, locale) => {
+const getSearchResults = (el, setSearchResults, locale, setEmpty) => {
     clearTimeout(timerID);
-    timer(el, setSearchResults, locale);
+    timer(el, setSearchResults, locale, setEmpty);
 };
 
 
 function SearchModal({locale}) {
     const [searchResults, setSearchResults] = useState(null);
+    const [empty, setEmpty] = useState(true);
 
     let heading = ""
     let description = ""
@@ -86,10 +89,13 @@ function SearchModal({locale}) {
         <scale-modal heading={heading} size="large" id="SearchModal">
             {/* scaleTextField is the event or the element which is provided to the timer function */}
             {/* setSearchResults is the method which updates our result list */}
-            <ScaleTextField id="searchbox" label={description} onScaleChange={(scaleTextField) => getSearchResults(scaleTextField.target, setSearchResults, locale)}>
+            <ScaleTextField
+                id="searchbox"
+                label={description}
+                onScaleChange={(scaleTextField) => getSearchResults(scaleTextField.target, setSearchResults, locale, setEmpty)}>
             </ScaleTextField>
 
-            <SearchResults results={searchResults} locale={locale}></SearchResults>
+            <SearchResults results={searchResults} locale={locale} empty={empty}></SearchResults>
         </scale-modal>
     );
 }
