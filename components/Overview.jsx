@@ -1,6 +1,7 @@
 import styles from '/styles/Overview.module.css';
 import Image from 'next/image';
 import Link from 'next/link'
+import ReactMarkdown from 'react-markdown'
 
 
 function Overview({props, locale}) {
@@ -49,7 +50,7 @@ function Overview({props, locale}) {
                         </div>
 
                         <div className={styles.item_overview}>
-                            <p>{description}</p>
+                            <ReactMarkdown children={description} />
                             <p className={styles.no_margin}>Product type: {product_type}</p>
                             <p className={styles.no_margin}>Provider: {company}</p>
                             <p className={styles.no_margin}>Website: <Link href={website}>{website}</Link></p>

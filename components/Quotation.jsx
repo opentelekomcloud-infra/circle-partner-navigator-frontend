@@ -3,6 +3,7 @@
 import React from 'react';
 import styles from '@/styles/Quotation.module.css';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown'
 
 
 function Quotation({props, locale}) {
@@ -37,7 +38,7 @@ function Quotation({props, locale}) {
                         <div className={styles.quote_icon}>”</div>                   
                         <div className={styles.quote_text}>
                             {quotation && (
-                                <b>{quotation}</b>
+                                <b><ReactMarkdown children={quotation} /></b>
                             )}                            
                             <div className={styles.quote_footer}>
                                 {quotation_footer && (

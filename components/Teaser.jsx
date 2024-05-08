@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '/styles/Teaser.module.css';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown'
 
 
 function Teaser({props, locale}) {
@@ -28,7 +29,7 @@ function Teaser({props, locale}) {
                     <div className={styles.teaser_container}>
                         <div className={styles.teaser_item}>
                             <h2>{headline}</h2>
-                            <p>{description}</p>
+                            <ReactMarkdown children={description} />
                         </div>
                         <div className={styles.teaser_item}>
                             {mediaType === 'video' && (
