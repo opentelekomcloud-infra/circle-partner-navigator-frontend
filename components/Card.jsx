@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styles from '/styles/Card.module.css';
 import Image from 'next/image';
 import Link from 'next/link'
+import ReactMarkdown from 'react-markdown'
 
 function Card({props, locale}) {
     // representation of a partner inside of partner navigator
@@ -49,7 +50,7 @@ function Card({props, locale}) {
                             </Image>
                             <div className={styles.content_container}>
                                 <h3 className={styles.h3}>{overview_headline}</h3>
-                                <div className={styles.content}>{overview_description}</div>
+                                <div className={styles.content}><ReactMarkdown children={overview_description} /></div>
                                 {partnerTags.map(tag => {
                                     return(
                                         <div

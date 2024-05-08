@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from '/styles/Feature.module.css';
 import Image from 'next/image';
-
-
+import ReactMarkdown from 'react-markdown'
 
 function Feature({props, locale}) {
 
@@ -55,7 +54,7 @@ function Feature({props, locale}) {
                         </div>
 
                         <div className={styles.feature_item}>
-                            <p>{description}</p>
+                            <ReactMarkdown children={description} />
                         </div>
                     </div>
                 </div>
