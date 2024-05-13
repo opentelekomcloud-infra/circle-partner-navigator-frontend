@@ -2,7 +2,9 @@
 
 import Link from 'next/link'
 import React from 'react';
+import styles from '/styles/Footer.module.css';
 import { usePathname } from 'next/navigation'
+
 
 function Footer() {
     const pathname = usePathname();
@@ -32,11 +34,24 @@ function Footer() {
             'imprint_link': 'https://www.open-telekom-cloud.com/en/imprint',
         }
     }
+
+    // create timestamp
+    var timestamp = new Date().toLocaleString();
+
+    if (locale === 'de') {
+        timestamp = `Zuletzt aktualisiert: ${timestamp}`
+    } else {
+        timestamp = `Last Updated: ${timestamp}`
+    }
+
     return (        
         <scale-telekom-footer slot="footer">
             <scale-telekom-footer-content>
                 <span slot="notice">© {new Date().getFullYear()} T-Systems International GmbH</span>
                 <ul slot="navigation">
+                    <li class={styles.timestamp}>
+                        {timestamp}
+                    </li>
                     <li>
                         <Link href={`${data[locale].commission_link}`}>{`${data[locale].commission}`}</Link>
                     </li>
