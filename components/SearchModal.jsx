@@ -12,13 +12,21 @@ async function searchRequest(queryText, locale) {
 
     // Default request without filtering
     const request_query = {
-        "from" : 0,
-        "size" : 10,
+        "from": 0,
+        "size": 10,
         "_source": ["highlight", "_id", "attributes.overview_headline"],
         "query": {
-            "multi_match": {
-              "query": queryText
-            }
+          "bool": {
+            "should": [
+              {
+                "multi_match": {
+                  "query": queryText,
+                  "type": "phrase_prefix",
+                  "slop": 4
+                }
+              }
+            ]
+          }
         },
         "highlight": {
           "number_of_fragments": 1,
@@ -26,15 +34,16 @@ async function searchRequest(queryText, locale) {
           "fields": {
             "*": {}
           },
-          "require_field_match" : false,
+          "require_field_match": false,
           "pre_tags": [
-              "<span style='color: var(--telekom-color-text-and-icon-primary-standard)'>"
+            "<span style='color: var(--telekom-color-text-and-icon-primary-standard)'>"
           ],
           "post_tags": [
-              "</span>"
+            "</span>"
           ]
         }
       };
+      
 
 
     let url = `https://opensearch.eco.tsi-dev.otc-service.com/cpn-*-${locale}/_search`
