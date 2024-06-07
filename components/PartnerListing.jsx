@@ -17,15 +17,19 @@ function PartnerListing({
     const [allTags, setAllTags] = useState(cachedTags)
     const [partners, setPartners] = useState(cachedPartners)
 
+    // changes tag chip state and triggers update of partner listing
     const changeChip = (id) => {
-        allTags.map(tag => {
-            if (tag.attributes.name === id.target.innerHTML){
-                tag["state"] = !tag["state"]
+        const updatedTags = allTags.map(tag => {
+            if (tag.id.toString() === id.target.getAttribute("filter_id").toString()) {
+                tag["state"] = !tag["state"];
             }
-        })
-        updatePartners();
+            return tag;
+        });
+        setAllTags(updatedTags);
+        updatePartners(updatedTags);
     };
 
+    // Returns true if all clicked tags are included in the specific partner taglist
     function tagsIncluded(partnerTags, targetTagIds) {
         // Returns true if all clicked tags are included in the specific partner taglist
         return targetTagIds.every((targetTag) =>
@@ -33,6 +37,7 @@ function PartnerListing({
         );
     }
 
+    // Update number of listed partners according to chosen tags
     const updatePartners = () => {
         let localPartners = []
         let localTags = []
@@ -55,6 +60,7 @@ function PartnerListing({
         setPartners(localPartners)
     };
 
+    // runs at start to set all available tags
     useEffect(() => {
         let localTags = allTags.map(el => {
             el["state"] = false
@@ -67,7 +73,6 @@ function PartnerListing({
         <div className={styles.container}>
             <div className={styles.container_width}>
                 {/* Tag Filter */}
-                {/* {console.log('return partner data: ', allTags)} */}
                 {allTags ? (
                     <scale-accordion expanded="true">
                         {cachedTagCategories ? (
@@ -75,15 +80,7 @@ function PartnerListing({
                                 return (
                                     <scale-collapsible
                                         key={cat.id}>
-                                        {/* {locale === "en" ? ( */}
                                             <span slot="heading">{cat.attributes.name}</span>
-                                        {/* // ) : ( */}
-                                        {/* //     cat.attributes.localizations.data.map(cat_locale => { */}
-                                        {/* //         if (cat_locale.attributes.locale === locale) { */}
-                                        {/* //             <span slot="heading">{cat_locale.attributes.name}</span> */}
-                                        {/* //         } */}
-                                        {/* //     }) */}
-                                        {/* // )} */}
                                         <div className={styles.checkboxwrapper}>
                                             {allTags.map(tag => {
                                                 if (tag.attributes.tag_category.data !== null) {
@@ -92,8 +89,9 @@ function PartnerListing({
                                                     if ( tag.attributes.tag_category.data.id === cat.id) {
                                                         return (
                                                             <ScaleChip
-                                                                key={tag.attributes.name}
-                                                                onScaleChange={changeChip}>{tag.attributes.name}
+                                                                key={tag.id}
+                                                                onScaleChange={changeChip}
+                                                                filter_id={tag.id}>{tag.attributes.name}
                                                             </ScaleChip>
                                                         )                                                
                                                     }
@@ -113,7 +111,6 @@ function PartnerListing({
                     <p>ERROR: allTags data not available.</p>
                 )}
                 {/* Partner Listing */}
-                {/* {console.log('return partner data: ', partners)} */}
                 {partners ? (
                     <CardFlexBox>
                         {partners.map(partner => {
