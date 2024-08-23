@@ -13,6 +13,8 @@ env:
 
 jobs:
   push_if_tag:
+    runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v4
     
