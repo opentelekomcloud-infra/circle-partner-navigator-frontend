@@ -5,20 +5,20 @@ import ReactMarkdown from 'react-markdown'
 
 
 function Teaser({props, locale}) {
-    let mediaSrc = `/api/${props.attributes.teaser_media.data.attributes.hash}${props.attributes.teaser_media.data.attributes.ext}`
-    const mediaType = props.attributes.teaser_media.data.attributes.mime.split('/')[0];
+    let mediaSrc = `/api/${props.teaser_media.hash}${props.teaser_media.ext}`
+    const mediaType = props.teaser_media.mime.split('/')[0];
 
     let headline = ""
     let description = ""
 
     if (locale === "en") {
-        headline = props["attributes"]["teaser_headline"]
-        description = props["attributes"]["teaser_description"]
+        headline = props["teaser_headline"]
+        description = props["teaser_description"]
     } else {
-        props.attributes.localizations.data.map(partner_localization => {
-            if (partner_localization.attributes.locale === locale) {
-                headline = partner_localization.attributes.teaser_headline
-                description = partner_localization.attributes.teaser_description
+        props.localizations.map(partner_localization => {
+            if (partner_localization.locale === locale) {
+                headline = partner_localization.teaser_headline
+                description = partner_localization.teaser_description
             }
         })
     }
@@ -34,14 +34,14 @@ function Teaser({props, locale}) {
                         <div className={styles.teaser_item}>
                             {mediaType === 'video' && (
                                 <video width="100%" height="100%" controls>
-                                    <source src={mediaSrc} type={props.attributes.teaser_media.data.attributes.mime} />
+                                    <source src={mediaSrc} type={props.teaser_media.mime} />
                                 </video>
                             )}
                             {mediaType === 'image' && (
                                 <Image
                                     src={mediaSrc}
-                                    width={props.attributes.teaser_media.data.attributes.width}
-                                    height={props.attributes.teaser_media.data.attributes.height}
+                                    width={props.teaser_media.width}
+                                    height={props.teaser_media.height}
                                     className={styles.teaser_image}
                                     alt="Teaser Image"></Image>
                             )}                            

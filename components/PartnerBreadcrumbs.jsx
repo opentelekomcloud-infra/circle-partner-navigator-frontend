@@ -8,13 +8,13 @@ function PartnerBreadcrumbs({ props, linkLocale, locale }) {
     var partner_id = '';
 
     if (locale === "en") {
-        headline = props["attributes"]["overview_headline"]
-        partner_id = props["attributes"]["partner_id"]
+        headline = props["overview_headline"]
+        partner_id = props["partner_id"]
     } else {
-        props.attributes.localizations.data.map(partner_localization => {
-            if (partner_localization.attributes.locale === locale) {
-                headline = partner_localization.attributes.overview_headline
-                partner_id = partner_localization.attributes.partner_id
+        props.localizations.map(partner_localization => {
+            if (partner_localization.locale === locale) {
+                headline = partner_localization.overview_headline
+                partner_id = partner_localization.partner_id
             }
         })
     }

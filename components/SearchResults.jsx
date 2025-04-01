@@ -21,7 +21,7 @@ function SearchResults({results, locale, empty}) {
                 results && results.length > 0 ? results.map((result, index) => (
                     <div  key={index} className={styles.result}>
                         <Link href={`/${locale}/partners/${result["_id"]}`} className={styles.atag} onClick={closeSearchModal}>
-                            <div className={styles.header}>{result["_source"]["attributes"]["overview_headline"]}</div>
+                            <div className={styles.header}>{result["_source"]["overview_headline"]}</div>
                             <div className={styles.link}>{`/${locale}/partners/${result["_id"]}`}</div>
                             <div className={styles.highlight} dangerouslySetInnerHTML={{ __html: result["highlight"][Object.keys(result["highlight"])[0]] }}></div>
                         </Link>

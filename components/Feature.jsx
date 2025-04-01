@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown'
 
 function Feature({props, locale}) {
 
-    let media = props["attributes"]["media"]["data"]["attributes"]
+    let media = props["media"]
     let mediaName = `${media.hash}${media.ext}`
     let mediaSrc = `/api/${media.hash}${media.ext}`
     const mediaType = media.mime.split('/')[0];
@@ -14,13 +14,13 @@ function Feature({props, locale}) {
     let description = ""
 
     if (locale === "en") {
-        headline = props["attributes"]["headline"]
-        description = props["attributes"]["description"]
+        headline = props["headline"]
+        description = props["description"]
     } else {
-        props.attributes.localizations.data.map(partner_localization => {
-            if (partner_localization.attributes.locale === locale) {
-                headline = partner_localization.attributes.headline
-                description = partner_localization.attributes.description
+        props.localizations.map(partner_localization => {
+            if (partner_localization.locale === locale) {
+                headline = partner_localization.headline
+                description = partner_localization.description
             }
         })
     }

@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown'
 
 function Overview({props, locale}) {
 
-    let mediaSrc = `/api/${props.attributes.overview_media.data.attributes.hash}${props.attributes.overview_media.data.attributes.ext}`
+    let mediaSrc = `/api/${props.overview_media.hash}${props.overview_media.ext}`
 
     let headline = ""
     let description = ""
@@ -15,19 +15,19 @@ function Overview({props, locale}) {
     let website = ""
 
     if (locale === "en") {
-        headline = props["attributes"]["overview_headline"]
-        description = props["attributes"]["overview_description"]
-        product_type = props["attributes"]["overview_product_type"]
-        company = props["attributes"]["overview_company_name"]
-        website = props["attributes"]["overview_website"]
+        headline = props["overview_headline"]
+        description = props["overview_description"]
+        product_type = props["overview_product_type"]
+        company = props["overview_company_name"]
+        website = props["overview_website"]
     } else {
-        props.attributes.localizations.data.map(partner_localization => {
-            if (partner_localization.attributes.locale === locale) {
-                headline = partner_localization.attributes.overview_headline
-                description = partner_localization.attributes.overview_description
-                product_type = partner_localization.attributes.overview_product_type
-                company = partner_localization.attributes.overview_company_name
-                website = partner_localization.attributes.overview_website
+        props.localizations.map(partner_localization => {
+            if (partner_localization.locale === locale) {
+                headline = partner_localization.overview_headline
+                description = partner_localization.overview_description
+                product_type = partner_localization.overview_product_type
+                company = partner_localization.overview_company_name
+                website = partner_localization.overview_website
             }
         })
     }
@@ -40,8 +40,8 @@ function Overview({props, locale}) {
                         <Image
                             src={mediaSrc}
                             alt="Overview image"
-                            width={props.attributes.overview_media.data.attributes.width}
-                            height={props.attributes.overview_media.data.attributes.height}
+                            width={props.overview_media.width}
+                            height={props.overview_media.height}
                             className={styles.overview_image}></Image>
                     </div>
                     <div className={styles.container_text}>
