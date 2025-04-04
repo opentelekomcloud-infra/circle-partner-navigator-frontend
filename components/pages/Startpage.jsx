@@ -10,6 +10,7 @@ import { getAllPartners, getAllTagCategories, getAllTags, getAllWebAssets } from
 export default async function Startpage({ props }) {
     // representation of first page
     const cachedPartnersData = await getAllPartners();
+    console.log(`Successfully fetched ${cachedPartnersData.length} partners.`)
     const cachedTagsData = await getAllTags();
     const cachedTagCategoriesData = await getAllTagCategories();
     const webAssets = await getAllWebAssets();
