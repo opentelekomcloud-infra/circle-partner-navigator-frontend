@@ -4,5 +4,5 @@
 First, run the development server:
 
 ```bash
-npm run build
+yarn build && yarn serve
 ```
