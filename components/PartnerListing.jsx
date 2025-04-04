@@ -53,7 +53,7 @@ function PartnerListing({
         }
         cachedPartners.map((partner) => {
         // filter partners how have one or more of the selected tags
-            if (tagsIncluded(partner.attributes.tags.data, localTags)) {
+            if (tagsIncluded(partner.tags, localTags)) {
               localPartners.push(partner);
             }
         });
@@ -80,23 +80,23 @@ function PartnerListing({
                                 return (
                                     <scale-collapsible
                                         key={cat.id}>
-                                            <span slot="heading">{cat.attributes.name}</span>
+                                            <span slot="heading">{cat.name}</span>
                                         <div className={styles.checkboxwrapper}>
                                             {allTags.map(tag => {
-                                                if (tag.attributes.tag_category.data !== null) {
+                                                if (tag.tag_category !== null) {
                                                     
                                                     // Check if tag belongs to tag category by verifying IDs
-                                                    if ( tag.attributes.tag_category.data.id === cat.id) {
+                                                    if ( tag.tag_category.id === cat.id) {
                                                         return (
                                                             <ScaleChip
                                                                 key={tag.id}
                                                                 onScaleChange={changeChip}
-                                                                filter_id={tag.id}>{tag.attributes.name}
+                                                                filter_id={tag.id}>{tag.name}
                                                             </ScaleChip>
                                                         )                                                
                                                     }
                                                 } else {
-                                                    console.error(`Tag ${tag.attributes.name} has no tag_category assigned!`);
+                                                    console.error(`Tag ${tag.name} has no tag_category assigned!`);
                                                 }
                                             })}
                                         </div>
@@ -115,7 +115,7 @@ function PartnerListing({
                     <CardFlexBox>
                         {partners.map(partner => {
                             return (
-                                <Card key={partner.attributes.partner_id} props={partner} locale={locale}></Card>
+                                <Card key={partner.partner_id} props={partner} locale={locale}></Card>
                             );
                         })}
                     </CardFlexBox>

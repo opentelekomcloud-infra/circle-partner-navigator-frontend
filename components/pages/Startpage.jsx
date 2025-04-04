@@ -10,31 +10,32 @@ import { getAllPartners, getAllTagCategories, getAllTags, getAllWebAssets } from
 export default async function Startpage({ props }) {
     // representation of first page
     const cachedPartnersData = await getAllPartners();
+    console.log(`Successfully fetched ${cachedPartnersData.length} partners.`)
     const cachedTagsData = await getAllTags();
     const cachedTagCategoriesData = await getAllTagCategories();
     const webAssets = await getAllWebAssets();
 
-    const mainHero = webAssets.find(asset => asset.attributes.name === 'main-hero-image')
-    const mainHeroHash = mainHero["attributes"]["media"]["data"]["attributes"]["hash"]
-    const mainHeroExt = mainHero["attributes"]["media"]["data"]["attributes"]["ext"]
+    const mainHero = webAssets.find(asset => asset.name === 'main-hero-image')
+    const mainHeroHash = mainHero["media"]["hash"]
+    const mainHeroExt = mainHero["media"]["ext"]
 
-    const otcIcon = webAssets.find(asset => asset.attributes.name === 'otc-icon')
-    const otcIconHash = otcIcon["attributes"]["media"]["data"]["attributes"]["hash"]
-    const otcIconExt = otcIcon["attributes"]["media"]["data"]["attributes"]["ext"]
+    const otcIcon = webAssets.find(asset => asset.name === 'otc-icon')
+    const otcIconHash = otcIcon["media"]["hash"]
+    const otcIconExt = otcIcon["media"]["ext"]
 
     let heroMedia = {
         backgroundImageUrl: `/api/${mainHeroHash}${mainHeroExt}`,
         iconSrc: `/api/${otcIconHash}${otcIconExt}`,
-        iconAlt: otcIcon["attributes"]["name"]
+        iconAlt: otcIcon["name"]
     }
 
-    const introMedia = webAssets.find(asset => asset.attributes.name === 'cpn-logo-light')
-    const introMediaHash = introMedia["attributes"]["media"]["data"]["attributes"]["hash"]
-    const introMediaExt = introMedia["attributes"]["media"]["data"]["attributes"]["ext"]
+    const introMedia = webAssets.find(asset => asset.name === 'cpn-logo-light')
+    const introMediaHash = introMedia["media"]["hash"]
+    const introMediaExt = introMedia["media"]["ext"]
     
-    const introMediaDark = webAssets.find(asset => asset.attributes.name === 'cpn-logo-dark')
-    const introMediaDarkHash = introMediaDark["attributes"]["media"]["data"]["attributes"]["hash"]
-    const introMediaDarkExt = introMediaDark["attributes"]["media"]["data"]["attributes"]["ext"]
+    const introMediaDark = webAssets.find(asset => asset.name === 'cpn-logo-dark')
+    const introMediaDarkHash = introMediaDark["media"]["hash"]
+    const introMediaDarkExt = introMediaDark["media"]["ext"]
 
     let intro = {}
     if (props["locale"] === "en") {

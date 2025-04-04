@@ -27,15 +27,15 @@ export default async function Page({ params }) {
     const partners = await getCachedPartnersData()
 
     // From all partners the one with the correct partner data is being collected.
-    let partnerData = partners.find(element => element.attributes.partner_id === params.partner);
+    let partnerData = partners.find(element => element.partner_id === params.partner);
 
     const metadata = await generateMetadata({params});
 
     // Quote
     let quote = {}
-    if (partnerData.attributes.quotes.data) {
+    if (partnerData.quotes) {
         // prevent more than one quote
-        quote = partnerData.attributes.quotes.data[0]
+        quote = partnerData.quotes[0]
     }
 
     return (
@@ -47,7 +47,7 @@ export default async function Page({ params }) {
             <PartnerBreadcrumbs props={partnerData} linkLocale={linkLocale} locale={locale}></PartnerBreadcrumbs>
             <Overview props={partnerData} locale={locale}></Overview>
             <Teaser props={partnerData} locale={locale}></Teaser>
-            {partnerData["attributes"]["features"]["data"].map(feature => {
+            {partnerData["features"].map(feature => {
                     return (
                         <Feature key={feature["id"]} props={feature} locale={locale}></Feature>
                     )
@@ -63,10 +63,10 @@ export default async function Page({ params }) {
 }
 
 export async function generateStaticParams() {
-    const partners = await getCachedPartnersData() 
+    const partners = await getCachedPartnersData()
     try {
         return partners.map((partner) => ({
-            partner: partner.attributes.partner_id
+            partner: partner.partner_id
         }));
     } catch {
         console.error("Error while accessing partner data. Check if the partner_id has an space in it.")
@@ -76,10 +76,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
     const partners = await getCachedPartnersData()
     try {
-        let partnerData = partners.find(element => element.attributes.partner_id === params.partner);
+        let partnerData = partners.find(element => element.partner_id === params.partner);
         return {
-            title: partnerData.attributes.overview_headline,
-            description: partnerData.attributes.overview_description
+            title: partnerData.overview_headline,
+            description: partnerData.overview_description
         };
     } catch {
         console.error("Error while accessing partner data. Check if the partner_id has an space in it.")

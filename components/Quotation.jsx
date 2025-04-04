@@ -11,14 +11,14 @@ function Quotation({props, locale}) {
     let quotation = undefined
     let quotation_footer = undefined
 
-    if (locale === "en" && props.attributes.quotation_footer !== undefined) {
-        quotation = props["attributes"]["quotation"]
-        quotation_footer = props["attributes"]["quotation_footer"]
+    if (locale === "en" && props.quotation_footer !== undefined) {
+        quotation = props["quotation"]
+        quotation_footer = props["quotation_footer"]
     } else {
-        props.attributes.localizations.data.map(partner_localization => {
-            if (partner_localization.attributes.locale === locale) {
-                quotation = partner_localization.attributes.quotation
-                quotation_footer = partner_localization.attributes.quotation_footer
+        props.localizations.map(partner_localization => {
+            if (partner_localization.locale === locale) {
+                quotation = partner_localization.quotation
+                quotation_footer = partner_localization.quotation_footer
             }
         })
     }
@@ -26,13 +26,13 @@ function Quotation({props, locale}) {
         <div className={styles.container}>
             <div className={styles.container_width}>
                 <div className={styles.quote_block}>
-                    {props.attributes.profile_picture && (
+                    {props.profile_picture && (
                         <Image
-                            src={`/api/${props.attributes.profile_picture.data.attributes.hash}${props.attributes.profile_picture.data.attributes.ext}`}
+                            src={`/api/${props.profile_picture.hash}${props.profile_picture.ext}`}
                             className={styles.quote_image}
-                            width={props.attributes.profile_picture.data.attributes.width}
-                            height={props.attributes.profile_picture.data.attributes.height}
-                            alt={props.attributes.profile_picture.data.attributes.name}></Image>
+                            width={props.profile_picture.width}
+                            height={props.profile_picture.height}
+                            alt={props.profile_picture.name}></Image>
                     )}
                     <div className={styles.quote_icon_text}>
                         <div className={styles.quote_icon}>”</div>                   
