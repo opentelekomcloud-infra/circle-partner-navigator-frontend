@@ -14,7 +14,7 @@ async function searchRequest(queryText, locale) {
     const request_query = {
         "from": 0,
         "size": 10,
-        "_source": ["highlight", "_id", "attributes.overview_headline"],
+        "_source": ["highlight", "_id", "overview_headline"],
         "query": {
           "bool": {
             "should": [

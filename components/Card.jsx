@@ -10,22 +10,22 @@ function Card({props, locale}) {
     // representation of a partner inside of partner navigator
     const [partner, setPartner] = useState(props)
 
-    let overviewMedia = partner.attributes.overview_media.data.attributes.hash
-    overviewMedia = overviewMedia.concat(partner.attributes.overview_media.data.attributes.ext)
-    let partnerTags = partner.attributes.tags.data
+    let overviewMedia = partner.overview_media.hash
+    overviewMedia = overviewMedia.concat(partner.overview_media.ext)
+    let partnerTags = partner.tags
 
     let overview_headline = ""
     let overview_description = ""
 
 
     if (locale === "en") {
-        overview_headline = partner.attributes.overview_headline
-        overview_description = partner.attributes.overview_description
+        overview_headline = partner.overview_headline
+        overview_description = partner.overview_description
     } else {
-        partner.attributes.localizations.data.map(partner_localization => {
-            if (partner_localization.attributes.locale === locale) {
-                overview_headline = partner_localization.attributes.overview_headline
-                overview_description = partner_localization.attributes.overview_description
+        partner.localizations.map(partner_localization => {
+            if (partner_localization.locale === locale) {
+                overview_headline = partner_localization.overview_headline
+                overview_description = partner_localization.overview_description
             }
         })
     }
@@ -39,12 +39,12 @@ function Card({props, locale}) {
 
     return (
                 <div className={styles.card_container}>
-                    <Link href={`${href_link}/partners/${partner.attributes.partner_id}`}>
+                    <Link href={`${href_link}/partners/${partner.partner_id}`}>
                         <div className={styles.card_body}>
                             <Image
                                 src={`/api/${overviewMedia}`}
-                                width={partner.attributes.overview_media.data.attributes.width}
-                                height={partner.attributes.overview_media.data.attributes.height}
+                                width={partner.overview_media.width}
+                                height={partner.overview_media.height}
                                 className={styles.image}
                                 alt={overview_headline}>
                             </Image>
@@ -56,9 +56,9 @@ function Card({props, locale}) {
                                         <div
                                             className={styles.tag}
                                             key={tag.id}
-                                            style={{borderLeft: `3px solid ${tag.attributes.color}`}}
+                                            style={{borderLeft: `3px solid ${tag.color}`}}
                                         >
-                                            {tag.attributes.name}
+                                            {tag.name}
                                         </div>
                                     )
                                 })}
