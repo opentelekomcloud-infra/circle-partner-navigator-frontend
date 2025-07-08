@@ -1,0 +1,48 @@
+name: Build and preview Circle Partner Navigator
+
+on:
+    pull_request:
+        branches:
+            - main
+
+    schedule:
+        - cron: '0 * * * *'  # every hour (UTC)
+
+permissions:
+    contents: read
+
+jobs:
+    cpn-build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: '20'
+
+            - name: Install dependencies
+              run: yarn install
+
+            - name: Build project
+              env:
+                  BASE_URL: ${{ secrets.BASE_URL }}
+                  AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+              run: yarn build
+
+            - name: Upload artifacts to OBS
+              env:
+                  AWS_ACCESS_KEY_ID: ${{ secrets.OTC_ACCESS_KEY_ID }}
+                  AWS_SECRET_ACCESS_KEY: ${{ secrets.OTC_SECRET_ACCESS_KEY }}
+                  AWS_DEFAULT_REGION: eu-de
+              run: |
+                  pip install "awscli<1.33.0"
+                  export TARGET_PATH=s3://cpn-preview-site/
+                  export ENDPOINT_URL=https://obs.eu-de.otc.t-systems.com
+                  aws s3 rm "$TARGET_PATH" --recursive --endpoint-url "$ENDPOINT_URL"
+                  aws s3 cp out/ "$TARGET_PATH" \
+                    --endpoint-url "$ENDPOINT_URL" \
+                    --recursive
