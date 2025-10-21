@@ -9,10 +9,11 @@
     "start": "next start",
     "lint": "next lint",
     "serve": "npx serve out",
-    "test": "node lib/fetch_media.mjs"
+    "test": "node lib/upload_to_opensearch.mjs"
   },
   "dependencies": {
     "@mcaptcha/react-glue": "^0.1.0-rc3",
+    "@opensearch-project/opensearch": "^3.5.1",
     "@telekom/scale-components": "^3.0.0-beta.139",
     "@telekom/scale-components-react": "^3.0.0-beta.139",
     "dotenv": "^16.3.1",
