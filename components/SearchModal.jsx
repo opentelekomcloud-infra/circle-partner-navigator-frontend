@@ -46,7 +46,7 @@ async function searchRequest(queryText, locale) {
       
 
 
-    let url = `https://opensearch.eco.tsi-dev.otc-service.com/cpn-*-${locale}/_search`
+    let url = `https://opensearch.eco.tsi-dev.otc-service.com/cpn-index-${locale}/_search`
 
     let response = await postRequest(url, request_query)
 
