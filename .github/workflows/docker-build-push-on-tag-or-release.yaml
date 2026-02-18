@@ -56,7 +56,7 @@ jobs:
             AUTH_TOKEN=${{ secrets.AUTH_TOKEN }}
 
       - name: Generate CycloneDX SBOM with Trivy (from pushed image)
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@0.34.0
         with:
           scan-type: image
           image-ref: "${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}@${{ steps.build.outputs.digest }}"
