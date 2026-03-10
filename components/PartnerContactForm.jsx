@@ -70,7 +70,7 @@ const renderCaptcha = (event) => {
 function PartnerContactForm({locale}) {
     const data = {
         'de-DE': {
-            'headline': 'Haben Sie Fragen zum Open Telekom Cloud Partner Programm?',
+            'headline': 'Haben Sie Fragen zum T Cloud Public Partner Programm?',
             'salutation': 'Anrede',
             'w': 'Frau',
             'm': 'Herr',
@@ -85,7 +85,7 @@ function PartnerContactForm({locale}) {
             'submit': 'Absenden',
         },
         'en': {
-            'headline': 'Do you have questions about the Open Telekom Cloud partner programs?',
+            'headline': 'Do you have questions about the T Cloud Public partner programs?',
             'salutation': 'Salutation',
             'w': 'Mrs.',
             'm': 'Mr.',

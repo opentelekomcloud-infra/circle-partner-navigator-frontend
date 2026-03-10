@@ -15,23 +15,17 @@ function Footer() {
     const data = {
         'de': {
             'commission': 'Auftragsverarbeitung',
-            'commission_link': 'https://www.open-telekom-cloud.com/_Resources/Persistent/4/e/e/8/4ee848dc4ead2a3992eeb85035677d55e1b53936/open-telekom-cloud-ergaenzende-bedingungen-auftragsverarbeitung.pdf',
-            'liability': 'Haftungsausschluss',
-            'liability_link': 'https://www.open-telekom-cloud.com/de/haftungsausschluss',
-            'privacy': 'Datenschutz',
-            'privacy_link': 'https://www.open-telekom-cloud.com/de/datenschutz',
-            'imprint': 'Impressum',
-            'imprint_link': 'https://www.open-telekom-cloud.com/de/impressum',
+            'commission_link': 'https://www.public.t-cloud.com/_Resources/Persistent/4/e/e/8/4ee848dc4ead2a3992eeb85035677d55e1b53936/open-telekom-cloud-ergaenzende-bedingungen-auftragsverarbeitung.pdf',
+            'liability_link': 'https://www.public.t-cloud.com/de/haftungsausschluss',
+            'privacy_link': 'https://www.public.t-cloud.com/de/datenschutz',
+            'imprint_link': 'https://www.public.t-cloud.com/de/impressum',
         },
         'en': {
             'commission': 'Commissioned Processing',
-            'commission_link': 'https://www.open-telekom-cloud.com/_Resources/Persistent/1/d/5/f/1d5f960ae36cb3624ea1759fc5813d572f76e7cc/open-telekom-cloud-supplementary-conditions-commissioned-processing-personal-data.pdf',
-            'liability': 'Disclaimer of Liability',
-            'liability_link': 'https://www.open-telekom-cloud.com/en/disclaimer-of-liability',
-            'privacy': 'Data Privacy',
-            'privacy_link': 'https://www.open-telekom-cloud.com/en/data-protection',
-            'imprint': 'Impressum',
-            'imprint_link': 'https://www.open-telekom-cloud.com/en/imprint',
+            'commission_link': 'https://www.public.t-cloud.com/_Resources/Persistent/1/d/5/f/1d5f960ae36cb3624ea1759fc5813d572f76e7cc/open-telekom-cloud-supplementary-conditions-commissioned-processing-personal-data.pdf',
+            'liability_link': 'https://www.public.t-cloud.com/en/disclaimer-of-liability',
+            'privacy_link': 'https://www.public.t-cloud.com/en/data-protection',
+            'imprint_link': 'https://www.public.t-cloud.com/en/imprint',
         }
     }
 
