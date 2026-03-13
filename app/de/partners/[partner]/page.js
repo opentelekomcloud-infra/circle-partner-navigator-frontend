@@ -17,7 +17,7 @@ async function getCachedPartnersData() {
     return cachedPartnersData;
 }
 
-export default async function Page({ params }) {
+export default async function Page({ params: paramsPromise }) {
     // function to create partner pages
 
     const locale = "de-DE"
@@ -25,6 +25,7 @@ export default async function Page({ params }) {
 
     // const { partner } = params;
     const partners = await getCachedPartnersData()
+    const params = await paramsPromise
 
     // From all partners the one with the correct partner data is being collected.
     let partnerData = partners.find(element => element.partner_id === params.partner);
@@ -73,8 +74,9 @@ export async function generateStaticParams() {
     }
 }   
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: paramsPromise }) {
     const partners = await getCachedPartnersData()
+    const params = await paramsPromise
     try {
         let partnerData = partners.find(element => element.partner_id === params.partner);
         return {
