@@ -20,7 +20,7 @@ export default async function App() {
 
 export async function generateMetadata() {
     return {
-        title: "Discover the powerful services of our partners",
-        description: "Many start-ups and cloud service providers already work together with us an partners, using our technology and infrastructure for their cloud projects. This is a testament to their trust in the T Cloud Public and our great partnership. You can start using these services today to improve your IT systems or your company's communications and benefit from the advantages of the GDPR-compliant European cloud."
+        title: "Entdecken Sie die leistungsstarken Services unserer Partner",
+        description: "Viele Start-ups und Cloud-Service-Anbieter arbeiten bereits mit uns als Partner zusammen und nutzen unsere Technologie und Infrastruktur für ihre Cloud-Produkte. Dies ist ein Beweis für ihr Vertrauen in die T Cloud Public und unsere großartige Partnerschaft."
     };
 }
