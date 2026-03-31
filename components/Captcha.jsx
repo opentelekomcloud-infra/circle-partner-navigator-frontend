@@ -1,13 +1,15 @@
-import React from 'react';
-import { MCaptchaWidget } from '@mcaptcha/react-glue';
+import React, { useEffect } from 'react';
 
 function Captcha({props}) {
-    const config = {
-        widgetLink: new URL(`${props["captcha_url"]}widget/?sitekey=${props["captcha_sitekey"]}`)
-    };
-    
+    useEffect(() => {
+        import("@cap.js/widget");
+    }, []);
+
     return (
-            <MCaptchaWidget {...config} />
+        <cap-widget
+            data-cap-api-endpoint={`${props["captcha_url"]}${props["captcha_sitekey"]}/`}
+            data-cap-hidden-field-name="cap-token"
+        ></cap-widget>
     );
 }
 

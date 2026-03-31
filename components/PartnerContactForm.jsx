@@ -8,8 +8,8 @@ import { ScaleButton, ScaleTextarea } from '@telekom/scale-components-react';
 
 // Settings for correct Captcha workflow
 const captchaSettings = {
-    captcha_sitekey: "CsJJsEtUfmwc0MJgMaJOajmEbYSBgGM6",
-    captcha_url: "https://mcaptcha.otc-service.com/"
+    captcha_sitekey: "a99b3fba05",
+    captcha_url: "https://cap.eco-preprod.tsi-dev.otc-service.com/"
 }
 
 const sendEmailButton = async (event) => {
@@ -20,16 +20,13 @@ const sendEmailButton = async (event) => {
     formData.forEach((value, key) => {
         if (key === "checkbox") {
             return;
-        } else if (key === "mcaptcha__token") {
-            return;
         }
         else {
             messageContent[`${key}`] = `${value}`
         }
     });
-    const captcha_token = document.getElementById("mcaptcha__token").value
 
-    const response = await sendEmail(messageContent, captcha_token, captchaSettings["captcha_sitekey"])
+    const response = await sendEmail(messageContent)
 
     if (response["status"] !== "success") {
         const notificationHTML = `
@@ -62,12 +59,18 @@ const sendEmailButton = async (event) => {
 
 }
 
-const renderCaptcha = (event) => {
-    document.getElementById("captcha").classList.remove(`${styles.no_display}`)
-}
-
-
 function PartnerContactForm({locale}) {
+    const [showCaptcha, setShowCaptcha] = React.useState(false);
+
+    const renderCaptcha = () => {
+        setShowCaptcha(true);
+    };
+
+    let captchaClass = styles.captcha;
+    if (!showCaptcha) {
+        captchaClass = `${styles.captcha} ${styles.no_display}`;
+    }
+
     const data = {
         'de-DE': {
             'headline': 'Haben Sie Fragen zum Open Telekom Cloud Partner Programm?',
@@ -177,7 +180,7 @@ function PartnerContactForm({locale}) {
                         label={data[locale].agreement}
                         >
                     </scale-checkbox>
-                    <div id="captcha" class={`${styles.captcha} ${styles.no_display}`}>
+                    <div id="captcha" class={captchaClass}>
                         <Captcha props={captchaSettings}></Captcha>
                     </div>
                     <ScaleButton
