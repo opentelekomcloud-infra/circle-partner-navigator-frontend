@@ -33,7 +33,7 @@ function Header({ props }) {
     <div>
       <scale-telekom-header
         slot="header"
-        app-name="Open Telekom Cloud Partner Portal"
+        app-name="T Cloud Public Partner Portal"
         app-name-link="/"
         logo-href="/"
         logo-title="Telekom Brand Logo"

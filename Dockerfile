@@ -1,5 +1,5 @@
-# Use the ubi8 Node.js 20 image as the base image
-FROM node:20-alpine as build
+# Use the ubi8 Node.js 24 image as the base image
+FROM node:24-alpine AS build
 
 ARG NODE_ENV
 ARG AUTH_TOKEN
