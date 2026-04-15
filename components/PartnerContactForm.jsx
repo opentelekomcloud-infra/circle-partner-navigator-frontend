@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from '@/styles/ContactForm.module.css';
 import sendEmail from '@/lib/helpers'
 import Captcha from '/components/Captcha';
@@ -8,30 +8,31 @@ import { ScaleButton, ScaleTextarea } from '@telekom/scale-components-react';
 
 // Settings for correct Captcha workflow
 const captchaSettings = {
-    captcha_sitekey: "CsJJsEtUfmwc0MJgMaJOajmEbYSBgGM6",
-    captcha_url: "https://mcaptcha.otc-service.com/"
+    captcha_sitekey: "8a7ff80d89",
+    captcha_url: "https://cap.eco-preprod.tsi-dev.otc-service.com/"
 }
 
-const sendEmailButton = async (event) => {
-    event.preventDefault(); // Prevent reloading of the page
+const sendEmailButton = async (event, captchaRef) => {
+    event.preventDefault();
 
     let messageContent = {}
     const formData = new FormData(event.target);
     formData.forEach((value, key) => {
         if (key === "checkbox") {
             return;
-        } else if (key === "mcaptcha__token") {
-            return;
         }
         else {
             messageContent[`${key}`] = `${value}`
         }
     });
-    const captcha_token = document.getElementById("mcaptcha__token").value
 
-    const response = await sendEmail(messageContent, captcha_token, captchaSettings["captcha_sitekey"])
+    const response = await sendEmail(messageContent)
 
     if (response["status"] !== "success") {
+        if (captchaRef.current) {
+            captchaRef.current.reset();
+        }
+
         const notificationHTML = `
             <scale-notification
             heading="Something went wrong while sending your E-Mail."
@@ -47,6 +48,9 @@ const sendEmailButton = async (event) => {
     }
     else if (response["status"] === "success") {
         event.target.reset();
+        if (captchaRef.current) {
+            captchaRef.current.reset();
+        }
         const notificationHTML = `
             <scale-notification
             heading="E-Mail sent successfully. We will answer your request soon."
@@ -62,12 +66,19 @@ const sendEmailButton = async (event) => {
 
 }
 
-const renderCaptcha = (event) => {
-    document.getElementById("captcha").classList.remove(`${styles.no_display}`)
-}
-
-
 function PartnerContactForm({locale}) {
+    const [showCaptcha, setShowCaptcha] = React.useState(false);
+    const captchaRef = useRef(null);
+
+    const renderCaptcha = () => {
+        setShowCaptcha(true);
+    };
+
+    let captchaClass = styles.captcha;
+    if (!showCaptcha) {
+        captchaClass = `${styles.captcha} ${styles.no_display}`;
+    }
+
     const data = {
         'de-DE': {
             'headline': 'Haben Sie Fragen zum T Cloud Public Partner Programm?',
@@ -107,7 +118,7 @@ function PartnerContactForm({locale}) {
                 <h2 className={styles.center}>
                     {data[locale].headline}
                 </h2>
-                <form className={styles.form_wrapper} onSubmit={sendEmailButton}>
+                <form className={styles.form_wrapper} onSubmit={(e) => sendEmailButton(e, captchaRef)}>
                     <scale-radio-button-group
                         label={data[locale].salutation}
                         class={styles.radio_buttons}>
@@ -177,8 +188,8 @@ function PartnerContactForm({locale}) {
                         label={data[locale].agreement}
                         >
                     </scale-checkbox>
-                    <div id="captcha" class={`${styles.captcha} ${styles.no_display}`}>
-                        <Captcha props={captchaSettings}></Captcha>
+                    <div id="captcha" class={captchaClass}>
+                        <Captcha ref={captchaRef} props={captchaSettings}></Captcha>
                     </div>
                     <ScaleButton
                         id="contactSubmitButton"
