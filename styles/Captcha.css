@@ -1,0 +1,18 @@
+cap-widget {
+  --cap-background: #ffffff;
+  --cap-border-color: var(--telekom-color-ui-border-standard);
+  --cap-border-radius: 14px;
+  --cap-widget-width: 230px;
+  --cap-widget-padding: 14px;
+  --cap-gap: 15px;
+  --cap-color: #212121;
+  --cap-checkbox-size: 25px;
+  --cap-checkbox-border: 1px solid var(--telekom-color-ui-border-standard);
+  --cap-checkbox-border-radius: 6px;
+  --cap-checkbox-background: #ffffff;
+  --cap-checkbox-margin: 2px;
+  --cap-font: TeleNeoWeb,sans-serif;
+  --cap-spinner-color: var(--telekom-color-text-and-icon-primary-standard);
+  --cap-spinner-background-color: #ffffff;
+  --cap-spinner-thickness: 5px;
+}

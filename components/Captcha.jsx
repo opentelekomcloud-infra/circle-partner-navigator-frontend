@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
+import '@/styles/Captcha.css';
 
 const Captcha = forwardRef(({ props }, ref) => {
     const captchaRef = useRef(null);
