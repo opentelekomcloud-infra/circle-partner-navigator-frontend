@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from '@/styles/ContactForm.module.css';
 import sendEmail from '@/lib/helpers'
 import Captcha from '/components/Captcha';
@@ -12,8 +12,8 @@ const captchaSettings = {
     captcha_url: "https://cap.eco-preprod.tsi-dev.otc-service.com/"
 }
 
-const sendEmailButton = async (event) => {
-    event.preventDefault(); // Prevent reloading of the page
+const sendEmailButton = async (event, captchaRef) => {
+    event.preventDefault();
 
     let messageContent = {}
     const formData = new FormData(event.target);
@@ -29,6 +29,10 @@ const sendEmailButton = async (event) => {
     const response = await sendEmail(messageContent)
 
     if (response["status"] !== "success") {
+        if (captchaRef.current) {
+            captchaRef.current.reset();
+        }
+
         const notificationHTML = `
             <scale-notification
             heading="Something went wrong while sending your E-Mail."
@@ -44,6 +48,9 @@ const sendEmailButton = async (event) => {
     }
     else if (response["status"] === "success") {
         event.target.reset();
+        if (captchaRef.current) {
+            captchaRef.current.reset();
+        }
         const notificationHTML = `
             <scale-notification
             heading="E-Mail sent successfully. We will answer your request soon."
@@ -61,6 +68,7 @@ const sendEmailButton = async (event) => {
 
 function PartnerContactForm({locale}) {
     const [showCaptcha, setShowCaptcha] = React.useState(false);
+    const captchaRef = useRef(null);
 
     const renderCaptcha = () => {
         setShowCaptcha(true);
@@ -110,7 +118,7 @@ function PartnerContactForm({locale}) {
                 <h2 className={styles.center}>
                     {data[locale].headline}
                 </h2>
-                <form className={styles.form_wrapper} onSubmit={sendEmailButton}>
+                <form className={styles.form_wrapper} onSubmit={(e) => sendEmailButton(e, captchaRef)}>
                     <scale-radio-button-group
                         label={data[locale].salutation}
                         class={styles.radio_buttons}>
@@ -181,7 +189,7 @@ function PartnerContactForm({locale}) {
                         >
                     </scale-checkbox>
                     <div id="captcha" class={captchaClass}>
-                        <Captcha props={captchaSettings}></Captcha>
+                        <Captcha ref={captchaRef} props={captchaSettings}></Captcha>
                     </div>
                     <ScaleButton
                         id="contactSubmitButton"
