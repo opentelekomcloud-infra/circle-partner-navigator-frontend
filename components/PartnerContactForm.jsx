@@ -8,7 +8,7 @@ import { ScaleButton, ScaleTextarea } from '@telekom/scale-components-react';
 
 // Settings for correct Captcha workflow
 const captchaSettings = {
-    captcha_sitekey: "8a7ff80d89",
+    captcha_sitekey: "f50d99b8cf",
     captcha_url: "https://cap.eco-preprod.tsi-dev.otc-service.com/"
 }
 
