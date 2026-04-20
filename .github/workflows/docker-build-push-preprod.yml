@@ -24,6 +24,7 @@ jobs:
             "${{ secrets.REGISTRY }}/${{ env.ORG }}/${{ env.PROJECT }}"
           tags: |
             type=sha
+            type=raw,value=preprod
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
