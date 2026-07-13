@@ -1,0 +1,5 @@
+cap-widget {
+  --cap-border-color: var(--telekom-color-ui-border-standard);
+  --cap-checkbox-border: 1px solid var(--telekom-color-ui-border-standard);
+  --cap-spinner-color: var(--telekom-color-text-and-icon-primary-standard);
+}
