@@ -44,7 +44,7 @@
     }
     /* Reverse flex Order to display the CPN logo on top  */
     .container_overview {
-        flex-direction: column-reverse;
+        flex-direction: column;
         /* Reduce on smaller displays a bit space below */
         margin-bottom: 2rem;
     }
@@ -53,7 +53,7 @@
 @media(min-width: 1040px) {
     .image_item {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         align-items: center;
     }
 }

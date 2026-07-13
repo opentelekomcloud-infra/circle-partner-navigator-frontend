@@ -29,11 +29,11 @@ export default async function Startpage({ props }) {
         iconAlt: otcIcon["name"]
     }
 
-    const introMedia = webAssets.find(asset => asset.name === 'cpn-logo-light')
+    const introMedia = webAssets.find(asset => asset.name === 'cpn-logo-light2')
     const introMediaHash = introMedia["media"]["hash"]
     const introMediaExt = introMedia["media"]["ext"]
     
-    const introMediaDark = webAssets.find(asset => asset.name === 'cpn-logo-dark')
+    const introMediaDark = webAssets.find(asset => asset.name === 'cpn-logo-dark2')
     const introMediaDarkHash = introMediaDark["media"]["hash"]
     const introMediaDarkExt = introMediaDark["media"]["ext"]
 
@@ -42,7 +42,7 @@ export default async function Startpage({ props }) {
         intro = {
             image: `${introMediaHash}${introMediaExt}`,
             image_dark: `${introMediaDarkHash}${introMediaDarkExt}`,
-            img_height: "143px",
+            img_height: "300px",
             headline: "Discover the powerful services of our partners",
             text: ["Many start-ups and cloud service providers already work together with us an partners, using our technology and infrastructure for their cloud projects. This is a testament to their trust in the T Cloud Public and our great partnership.", "You can start using these services today to improve your IT systems or your company's communications and benefit from the advantages of the GDPR-compliant European cloud."]
         }
@@ -50,7 +50,7 @@ export default async function Startpage({ props }) {
         intro = {
             image: `${introMediaHash}${introMediaExt}`,
             image_dark: `${introMediaDarkHash}${introMediaDarkExt}`,
-            img_height: "143px",
+            img_height: "300px",
             headline: "Entdecken Sie die leistungsstarken Services unserer Partner",
             text: ["Viele Start-ups und Cloud-Service-Anbieter arbeiten bereits mit uns als Partner zusammen und nutzen unsere Technologie und Infrastruktur für ihre Cloud-Produkte. Dies ist ein Beweis für ihr Vertrauen in die T Cloud Public und unsere großartige Partnerschaft.", "Sie können diese Dienste schon heute einsetzen, um Ihre IT-Systeme oder die Kommunikation Ihres Unternehmens zu verbessern und von den Vorteilen der DSGVO-konformen europäischen Cloud zu profitieren."]
         }
