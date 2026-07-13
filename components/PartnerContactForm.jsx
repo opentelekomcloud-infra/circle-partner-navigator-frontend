@@ -8,8 +8,8 @@ import { ScaleButton, ScaleTextarea } from '@telekom/scale-components-react';
 
 // Settings for correct Captcha workflow
 const captchaSettings = {
-    captcha_sitekey: "f50d99b8cf",
-    captcha_url: "https://cap.eco-preprod.tsi-dev.otc-service.com/"
+    captcha_sitekey: "c753cf1480",
+    captcha_url: "https://cap.eco.tsi-dev.otc-service.com/"
 }
 
 const sendEmailButton = async (event, captchaRef) => {
