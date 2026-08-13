@@ -1,5 +1,5 @@
-# Use the ubi8 Node.js 24 image as the base image
-FROM node:24-alpine AS build
+ARG ARTIFACTORY_URL
+FROM ${ARTIFACTORY_URL}/dhi.io/node:24-alpine AS build
 
 ARG NODE_ENV
 ARG AUTH_TOKEN
@@ -24,7 +24,7 @@ COPY . .
 RUN yarn build
 
 ## now add the build to nginx
-FROM nginx:alpine
+FROM ${ARTIFACTORY_URL}/dhi.io/nginx:alpine
 
 RUN rm /usr/share/nginx/html/*
 
