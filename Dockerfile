@@ -26,8 +26,6 @@ RUN yarn build
 ## now add the build to nginx
 FROM ${ARTIFACTORY_URL}/dhi.io/nginx:1-alpine
 
-RUN rm /usr/share/nginx/html/*
-
 # Copy the build to the nginx directory
 COPY --from=build /app/out /usr/share/nginx/html
 
