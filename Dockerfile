@@ -24,7 +24,7 @@ COPY . .
 RUN yarn build
 
 ## now add the build to nginx
-FROM ${ARTIFACTORY_URL}/dhi.io/nginx:alpine
+FROM ${ARTIFACTORY_URL}/dhi.io/nginx:1-alpine
 
 RUN rm /usr/share/nginx/html/*
 
