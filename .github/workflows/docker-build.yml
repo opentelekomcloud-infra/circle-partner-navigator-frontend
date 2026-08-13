@@ -85,7 +85,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            "${{ secrets.SWR_URL }}/${{ env.PROJECT }}"
+            "${{ secrets.SWR_URL }}/opentelekomcloud/${{ env.PROJECT }}"
           tags: |
             type=schedule
             type=ref,event=branch
