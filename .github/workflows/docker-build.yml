@@ -60,7 +60,7 @@ jobs:
           ARTIFACTORY_URL=${{ secrets.ARTIFACTORY_URL }}
 
   push_if_merged:
-    if: github.event.pull_request.merged == false
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
