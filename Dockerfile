@@ -1,5 +1,5 @@
 ARG ARTIFACTORY_URL
-FROM ${ARTIFACTORY_URL}/dhi.io/node:24-alpine AS build
+FROM ${ARTIFACTORY_URL}/dhi.io/node:24-alpine-dev AS build
 
 ARG NODE_ENV
 ARG AUTH_TOKEN
