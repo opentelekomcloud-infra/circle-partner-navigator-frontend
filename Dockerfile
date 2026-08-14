@@ -24,13 +24,13 @@ COPY . .
 RUN yarn build
 
 ## now add the build to nginx
-FROM ${ARTIFACTORY_URL}/dhi.io/nginx:1-alpine
+FROM ${ARTIFACTORY_URL}/dhi.io/nginx:1-alpine-dev
 
 # Copy the build to the nginx directory
 COPY --from=build /app/out /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
+# Expose port 8080 (DHI nginx listens on 8080 by default)
+EXPOSE 8080
 
 # Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
