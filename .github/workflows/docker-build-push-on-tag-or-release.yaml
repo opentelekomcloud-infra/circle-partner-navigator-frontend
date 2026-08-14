@@ -23,7 +23,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            "${{ secrets.SWR_URL }}/opentelekomcloud/${{ env.PROJECT }}"
+            "${{ secrets.SWR_URL }}/t-cloud-public/${{ env.PROJECT }}"
           tags: |
             type=schedule
             type=ref,event=branch
