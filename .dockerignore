@@ -1,0 +1,12 @@
+# Keep secrets and local build state out of the image build context.
+# A local .env copied in by "COPY . ." would end up in a build-stage layer
+# (and in any exported build cache) even though the final image only gets /app/out.
+.env
+.env.*
+.git
+.github
+node_modules
+.next
+out
+public/api
+*.pem
