@@ -54,9 +54,10 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: false
+        secrets: |
+          auth_token=${{ secrets.AUTH_TOKEN }}
         build-args: |
           BASE_URL=${{ secrets.BASE_URL }}
-          AUTH_TOKEN=${{ secrets.AUTH_TOKEN }}
           ARTIFACTORY_URL=${{ secrets.ARTIFACTORY_URL }}
 
   push_if_merged:
@@ -107,7 +108,8 @@ jobs:
           push: true
           provenance: false
           sbom: false
+          secrets: |
+            auth_token=${{ secrets.AUTH_TOKEN }}
           build-args: |
             BASE_URL=${{ secrets.BASE_URL }}
-            AUTH_TOKEN=${{ secrets.AUTH_TOKEN }}
             ARTIFACTORY_URL=${{ secrets.ARTIFACTORY_URL }}
