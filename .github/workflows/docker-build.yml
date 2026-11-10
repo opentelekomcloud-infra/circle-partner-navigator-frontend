@@ -18,6 +18,8 @@ jobs:
   build:
     if: github.event.pull_request.merged == false
     runs-on: ubuntu-internal
+    container:
+      image: catthehacker/ubuntu:js-26.04-dev
 
     steps:
     - uses: actions/checkout@v4
@@ -62,7 +64,9 @@ jobs:
 
   push_if_merged:
     if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-internal
+    container:
+      image: catthehacker/ubuntu:js-26.04-dev
 
     steps:
       - uses: actions/checkout@v4

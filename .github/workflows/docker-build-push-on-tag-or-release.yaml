@@ -14,6 +14,8 @@ env:
 jobs:
   push_if_tag:
     runs-on: ubuntu-internal
+    container:
+      image: catthehacker/ubuntu:js-26.04-dev
 
     steps:
       - uses: actions/checkout@v4
