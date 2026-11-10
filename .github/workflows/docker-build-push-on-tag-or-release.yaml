@@ -7,61 +7,59 @@ on:
   release:
     types: [published]
 
+permissions: {}
+
 env:
-  ORG: opentelekomcloud
   PROJECT: circle-partner-navigator-frontend
 
 jobs:
   push_if_tag:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-internal
+    container:
+      image: ghcr.io/kaniko-build/dist/chainguard-forks-kaniko/executor:v1.25.19-debug
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Configure registry credentials
+        env:
+          SWR_URL: ${{ secrets.SWR_URL }}
+          SWR_USERNAME: ${{ secrets.SWR_USERNAME }}
+          SWR_PASSWORD: ${{ secrets.SWR_PASSWORD }}
+          ARTIFACTORY_URL: ${{ secrets.ARTIFACTORY_URL }}
+          ARTIFACTORY_AUTH_USERNAME: ${{ secrets.ARTIFACTORY_AUTH_USERNAME }}
+          ARTIFACTORY_AUTH_PASSWORD: ${{ secrets.ARTIFACTORY_AUTH_PASSWORD }}
+        run: |
+          mkdir -p /kaniko/.docker
+          swr_auth="$(printf '%s:%s' "$SWR_USERNAME" "$SWR_PASSWORD" | base64 | tr -d '\n')"
+          art_auth="$(printf '%s:%s' "$ARTIFACTORY_AUTH_USERNAME" "$ARTIFACTORY_AUTH_PASSWORD" | base64 | tr -d '\n')"
+          printf '{"auths":{"%s":{"auth":"%s"},"%s":{"auth":"%s"}}}' \
+            "$SWR_URL" "$swr_auth" "$ARTIFACTORY_URL" "$art_auth" > /kaniko/.docker/config.json
 
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: |
-            "${{ secrets.SWR_URL }}/t-cloud-public/${{ env.PROJECT }}"
-          tags: |
-            type=schedule
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=sha
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to SWR Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ secrets.SWR_URL }}
-          username: ${{ secrets.SWR_USERNAME }}
-          password: ${{ secrets.SWR_PASSWORD }}
-
-      - name: Login to Artifactory DHI
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ secrets.ARTIFACTORY_URL }}
-          username: ${{ secrets.ARTIFACTORY_AUTH_USERNAME }}
-          password: ${{ secrets.ARTIFACTORY_AUTH_PASSWORD }}
-
-      - name: Build and push
-        id: build
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          push: true
-          provenance: false
-          sbom: false
-          secrets: |
-            auth_token=${{ secrets.AUTH_TOKEN }}
-          build-args: |
-            BASE_URL=${{ secrets.BASE_URL }}
-            ARTIFACTORY_URL=${{ secrets.ARTIFACTORY_URL }}
+      - name: Build and push image with Kaniko
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          ARTIFACTORY_URL: ${{ secrets.ARTIFACTORY_URL }}
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+          SWR_URL: ${{ secrets.SWR_URL }}
+        run: |
+          short_sha="$(printf '%s' "$GITHUB_SHA" | cut -c1-7)"
+          image="${SWR_URL}/t-cloud-public/${PROJECT}"
+          destinations="--destination=${image}:${GITHUB_REF_NAME} --destination=${image}:sha-${short_sha}"
+          case "$GITHUB_REF_NAME" in
+            [0-9]*.[0-9]*.[0-9]*)
+              major="${GITHUB_REF_NAME%%.*}"
+              rest="${GITHUB_REF_NAME#*.}"
+              minor="${rest%%.*}"
+              destinations="$destinations --destination=${image}:${major}.${minor} --destination=${image}:${major}"
+              ;;
+          esac
+          /kaniko/executor \
+            --context="git://github.com/${GITHUB_REPOSITORY}.git#${GITHUB_SHA}" \
+            --dockerfile=Dockerfile \
+            --snapshot-mode=time --compressed-caching=false \
+            $destinations \
+            --label="org.opencontainers.image.source=https://github.com/${GITHUB_REPOSITORY}" \
+            --label="org.opencontainers.image.revision=${GITHUB_SHA}" \
+            --label="org.opencontainers.image.title=${PROJECT}" \
+            --build-arg BASE_URL="$BASE_URL" \
+            --build-arg ARTIFACTORY_URL="$ARTIFACTORY_URL" \
+            --build-arg AUTH_TOKEN="$AUTH_TOKEN"

@@ -14,7 +14,9 @@ permissions:
 
 jobs:
     cpn-build:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-internal
+        container:
+            image: catthehacker/ubuntu:js-26.04-dev
 
         steps:
             - name: Checkout code
@@ -40,7 +42,7 @@ jobs:
                   AWS_SECRET_ACCESS_KEY: ${{ secrets.OTC_SECRET_ACCESS_KEY }}
                   AWS_DEFAULT_REGION: eu-de
               run: |
-                  pip install "awscli<1.33.0"
+                  python3 -m pip install --break-system-packages "awscli<1.33.0"
                   export TARGET_PATH=s3://cpn-preview-site/
                   export ENDPOINT_URL=https://obs.eu-de.otc.t-systems.com
                   aws s3 rm "$TARGET_PATH" --recursive --endpoint-url "$ENDPOINT_URL"

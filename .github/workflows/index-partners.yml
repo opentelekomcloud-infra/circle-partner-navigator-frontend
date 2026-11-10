@@ -8,7 +8,9 @@ on:
 
 jobs:
   index:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-internal
+    container:
+      image: catthehacker/ubuntu:js-26.04-dev
     permissions:
       contents: read
     env:
