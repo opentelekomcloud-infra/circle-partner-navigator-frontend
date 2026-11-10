@@ -43,7 +43,7 @@ jobs:
           --dockerfile=Dockerfile \
           --destination="${SWR_URL}/${PROJECT}:pr-${{ github.event.pull_request.number }}" \
           --no-push \
-          --snapshot-mode=redo \
+          --snapshot-mode=time --compressed-caching=false \
           --label="org.opencontainers.image.source=https://github.com/${GITHUB_REPOSITORY}" \
           --label="org.opencontainers.image.revision=${GITHUB_SHA}" \
           --label="org.opencontainers.image.title=${PROJECT}" \
@@ -87,7 +87,7 @@ jobs:
           /kaniko/executor \
             --context="git://github.com/${GITHUB_REPOSITORY}.git#${GITHUB_SHA}" \
             --dockerfile=Dockerfile \
-            --snapshot-mode=redo \
+            --snapshot-mode=time --compressed-caching=false \
             --destination="${image}:${BASE_REF}" \
             --destination="${image}:pr-${PR_NUMBER}" \
             --destination="${image}:sha-${short_sha}" \
