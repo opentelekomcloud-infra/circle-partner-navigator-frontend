@@ -14,7 +14,7 @@ jobs:
   push_if_tag:
     runs-on: ubuntu-internal
     container:
-      image: gcr.io/kaniko-project/executor:v1.24.0-debug
+      image: ghcr.io/kaniko-build/dist/chainguard-forks-kaniko/executor:v1.25.19-debug
 
     steps:
       - name: Configure registry credentials
