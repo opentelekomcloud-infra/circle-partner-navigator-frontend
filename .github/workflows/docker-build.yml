@@ -9,6 +9,8 @@ on:
       - reopened
       - synchronize
 
+permissions: {}
+
 env:
   PROJECT: circle-partner-navigator-frontend
 
