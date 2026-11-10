@@ -14,7 +14,7 @@ permissions:
 
 jobs:
     cpn-build:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-internal
 
         steps:
             - name: Checkout code

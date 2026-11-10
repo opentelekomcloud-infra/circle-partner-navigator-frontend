@@ -17,7 +17,7 @@ jobs:
 
   build:
     if: github.event.pull_request.merged == false
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-internal
 
     steps:
     - uses: actions/checkout@v4
