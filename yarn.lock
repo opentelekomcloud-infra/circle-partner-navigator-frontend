@@ -141,10 +141,10 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.28.5"
 
-"@cap.js/widget@^0.1.43":
-  version "0.1.43"
-  resolved "https://registry.yarnpkg.com/@cap.js/widget/-/widget-0.1.43.tgz#c00a345f776460f0aed2d1bc6fdfd878987d8ff5"
-  integrity sha512-VYfYIbsLH49UPhwKr4W2oW+Vu358gZJencWQ9PLlWzMw6/QlYi2GpVaSYndHOvb3Z7fK3OrQa9L65FrM4esdoA==
+"@cap.js/widget@^0.1.62":
+  version "0.1.62"
+  resolved "https://registry.yarnpkg.com/@cap.js/widget/-/widget-0.1.62.tgz#ee5ba27d49a698f0ef85716d8976a523efc64391"
+  integrity sha512-ooufENSpF5r6nlPbYQc4UMpcvTJYnWkbOJduwltVtEiEZY5RsTAeruWFOAZH63nSOsp6XP4+xMDvLPKfFL5LDw==
 
 "@duetds/date-picker@1.2.0":
   version "1.2.0"
