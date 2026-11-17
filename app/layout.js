@@ -12,7 +12,7 @@ const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   // Next's static export needs inline bootstrap scripts; script-src-attr
   // still blocks inline event handlers such as <img onerror=...>.
-  "script-src 'self' 'unsafe-inline'",
+  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'",
   "script-src-attr 'none'",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
