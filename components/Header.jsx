@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import styles from '/styles/Header.module.css';
 import SearchModal from '@/components/SearchModal';
+import { normaliseLocale } from '@/lib/locale';
 
 const openSearchModal = () => {
   const modal = document.getElementById('SearchModal');
@@ -20,13 +21,14 @@ function Header({ props }) {
     router.push(newPath);
   }
 
-  // Get the current language from the URL
-  const currentLang = pathname.split('/')[1];
+  // Get the current language from the URL. The segment is attacker-controlled
+  // and is used to build the OpenSearch index name, so only de/en pass.
+  const currentLang = normaliseLocale(pathname.split('/')[1]);
   const [lang, setLang] = useState(currentLang);
 
   // Update the language state when the URL changes
   useEffect(() => {
-    setLang(pathname.split('/')[1]);
+    setLang(normaliseLocale(pathname.split('/')[1]));
   }, [pathname]);
 
   return (
