@@ -27,6 +27,10 @@
     font-size: 1.125rem;
 }
 
+.hl {
+    color: var(--telekom-color-text-and-icon-primary-standard);
+}
+
 @media (prefers-color-scheme: dark) {
     .header {
         color: var(--telekom-color-text-and-icon-standard);

@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 
 import styles from '@/styles/SearchResults.module.css';
+import { splitHighlight } from '@/lib/highlight';
 
 
 const closeSearchModal = () => {
@@ -24,7 +25,8 @@ function SearchResults({ results, locale, empty }) {
                         const partnerId = result._source?.attributes?.partner_id;
                         const headline = result._source?.attributes?.overview_headline;
                         const highlightKey = Object.keys(result.highlight || {})[0];
-                        const highlightHtml = result.highlight?.[highlightKey] || "";
+                        const highlightValue = result.highlight?.[highlightKey];
+                        const highlightText = Array.isArray(highlightValue) ? highlightValue[0] : highlightValue;
 
                         if (!partnerId) return null; // falls kein partner_id vorhanden ist
 
@@ -39,10 +41,15 @@ function SearchResults({ results, locale, empty }) {
                                     <div className={styles.link}>
                                         {`/${locale}/partners/${partnerId}`}
                                     </div>
-                                    <div
-                                        className={styles.highlight}
-                                        dangerouslySetInnerHTML={{ __html: highlightHtml }}
-                                    ></div>
+                                    <div className={styles.highlight}>
+                                        {splitHighlight(highlightText || "").map((segment, i) =>
+                                            segment.highlighted ? (
+                                                <span key={i} className={styles.hl}>{segment.text}</span>
+                                            ) : (
+                                                <React.Fragment key={i}>{segment.text}</React.Fragment>
+                                            )
+                                        )}
+                                    </div>
                                 </Link>
                             </div>
                         );

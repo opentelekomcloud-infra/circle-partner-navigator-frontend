@@ -3,12 +3,15 @@ import React, { useState, useEffect} from 'react';
 import { ScaleTextField } from '@telekom/scale-components-react';
 import { postRequest } from '@/lib/postrequest'
 import SearchResults from '@/components/SearchResults';
+import { normaliseLocale } from '@/lib/locale';
+import { HIGHLIGHT_START, HIGHLIGHT_END } from '@/lib/highlight';
 
 
 var timerID = 0;
 
 // Build the request for searching
 async function searchRequest(queryText, locale) {
+    const safeLocale = normaliseLocale(locale);
 
     // Default request without filtering
     const request_query = {
@@ -38,18 +41,16 @@ async function searchRequest(queryText, locale) {
             "*": {}
           },
           "require_field_match": false,
-          "pre_tags": [
-            "<span style='color: var(--telekom-color-text-and-icon-primary-standard)'>"
-          ],
-          "post_tags": [
-            "</span>"
-          ]
+          // Control characters, not HTML: SearchResults renders the fragments
+          // as React text and wraps the marked parts in a <span>.
+          "pre_tags": [HIGHLIGHT_START],
+          "post_tags": [HIGHLIGHT_END]
         }
       };
       
 
 
-    let url = `https://opensearch.eco.tsi-dev.otc-service.com/cpn-index-${locale}/_search`
+    let url = `https://opensearch.eco.tsi-dev.otc-service.com/cpn-index-${safeLocale}/_search`
 
     let response = await postRequest(url, request_query)
 
@@ -78,13 +79,14 @@ const getSearchResults = (el, setSearchResults, locale, setEmpty) => {
 
 
 function SearchModal({locale}) {
+    const safeLocale = normaliseLocale(locale);
     const [searchResults, setSearchResults] = useState(null);
     const [empty, setEmpty] = useState(true);
 
     let heading = ""
     let description = ""
 
-    if (locale === "de") {
+    if (safeLocale === "de") {
         heading = "Suche"
         description = "Durchsuchen Sie hier unsere Partnerangebote."
     }
@@ -104,10 +106,10 @@ function SearchModal({locale}) {
             <ScaleTextField
                 id="searchbox"
                 label={description}
-                onScaleChange={(scaleTextField) => getSearchResults(scaleTextField.target, setSearchResults, locale, setEmpty)}>
+                onScaleChange={(scaleTextField) => getSearchResults(scaleTextField.target, setSearchResults, safeLocale, setEmpty)}>
             </ScaleTextField>
 
-            <SearchResults results={searchResults} locale={locale} empty={empty}></SearchResults>
+            <SearchResults results={searchResults} locale={safeLocale} empty={empty}></SearchResults>
         </scale-modal>
     );
 }

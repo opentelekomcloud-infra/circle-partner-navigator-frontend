@@ -9,6 +9,24 @@ import { useLayoutEffect } from 'react'
 import UmamiTracker from '@/components/UmamiTracker';
 
 
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  // Next's static export needs inline bootstrap scripts; script-src-attr
+  // still blocks inline event handlers such as <img onerror=...>.
+  "script-src 'self' 'unsafe-inline' https://analytics.otc-service.com",
+  "script-src-attr 'none'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https:",
+  "font-src 'self' data:",
+  "media-src 'self' data:",
+  "connect-src 'self' https://opensearch.eco.tsi-dev.otc-service.com https://mail-gateway.otc-service.com https://cap.eco.tsi-dev.otc-service.com https://analytics.otc-service.com",
+  "worker-src 'self' blob:",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join("; ");
+
+
 export default function RootLayout({ children }) {
   useLayoutEffect(() => {
     // crap which needs to be added to use scale framework
@@ -19,6 +37,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <meta httpEquiv="Content-Security-Policy" content={CONTENT_SECURITY_POLICY} />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <script defer src="https://analytics.otc-service.com/script.js" data-website-id="08eb7b5c-f68d-40da-8969-34a51a3245c3"></script>
       </head>
