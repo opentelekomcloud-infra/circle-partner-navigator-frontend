@@ -52,7 +52,7 @@ RUN --mount=type=secret,id=auth_token \
     yarn build
 
 ## now add the build to nginx
-FROM ${ARTIFACTORY_URL}/dhi.io/nginx:1-alpine-dev
+FROM ${ARTIFACTORY_URL}/dhi.io/nginx:1.31.9-alpine3.24-dev
 
 # Copy the build to the nginx directory
 COPY --from=build /app/out /usr/share/nginx/html
